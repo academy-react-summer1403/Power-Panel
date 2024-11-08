@@ -30,6 +30,12 @@ export default [
         title: "ساخت دوره",
         icon : <Circle size={15} /> ,
         navLink: "/CreateCourse"
+      },
+      {
+        id: "CreateCourseCat",
+        title: "ساخت کتگوری",
+        icon : <Circle size={15} /> ,
+        navLink: "/CreateCourseCat"
       }
     ],
   },

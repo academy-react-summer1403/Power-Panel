@@ -1,4 +1,4 @@
-export const ConvertOpt = (array) => {
+export const convertOptions = (array) => {
   const mappedArray = array.map((item) => ({
     label:
       item.title ||

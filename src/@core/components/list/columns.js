@@ -8,11 +8,6 @@ import Avatar from "@components/avatar";
 // ** Reactstrap Imports
 import {
   Badge,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledTooltip,
-  UncontrolledDropdown,
 } from "reactstrap";
 
 // ** Third Party Components
@@ -20,15 +15,11 @@ import {
   Eye,
   Send,
   Edit,
-  Copy,
   Save,
   Info,
   Trash,
   PieChart,
-  Download,
-  TrendingUp,
   CheckCircle,
-  MoreVertical,
   ArrowDownCircle,
 } from "react-feather";
 import { DtaeConvert } from "../../../core/services/utils/date";
@@ -57,11 +48,12 @@ const renderClient = (row) => {
     color = states[stateNum];
 
   if (row.length > 0) {
-    return <Avatar className="me-50" img={row.avatar} width="32" height="32" />;
+    return <Avatar className="me-50" img={row.lName} width="32" height="32" />;
   } else {
     return (
       <Avatar
         color={color}
+        img={row.lName}
         className="me-50"
         content={row.client ? row.client.name : "John Doe"}
         initials
