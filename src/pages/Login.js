@@ -1,93 +1,94 @@
 // ** React Imports
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useSkin } from "@hooks/useSkin";
+import { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 // ** Icons Imports
-import { Facebook, Twitter, Mail, GitHub } from "react-feather";
+import { Facebook, GitHub, Mail, Twitter } from "react-feather";
+
+// Core Imports
+import { ApiLogin } from "../core/services/api/Auth";
+import { getItem, setItem } from "../core/services/common/storage.services";
+import { LoginVal } from "../core/Validation/auth";
+
+// ** Custom Components
+import InputPasswordToggle from "../@core/components/input-password-toggle";
+import ErrorMessage from "../@core/components/error-message";
 
 // ** Reactstrap Imports
 import {
-  Row,
-  Col,
-  CardTitle,
-  CardText,
-  Label,
-  Input,
   Button,
+  CardText,
+  CardTitle,
+  Col,
+  Form,
+  Input,
+  Label,
+  Row,
 } from "reactstrap";
 
-// yup
-import * as yup from "yup";
-
 // ** Illustrations Imports
-import illustrationsLight from "@src/assets/images/pages/login-v2.svg";
 import illustrationsDark from "@src/assets/images/pages/login-v2-dark.svg";
-import { Formik, Form, Field , ErrorMessage } from "formik";
-import { ApiLogin } from "../core/services/api/Auth";
+import illustrationsLight from "@src/assets/images/pages/login-v2.svg";
 
 // ** Styles
 import "@styles/react/pages/page-authentication.scss";
-import { useState } from "react";
-import { setItem } from "../core/services/common/storage.services";
-import toast from "react-hot-toast";
 
 const Login = () => {
+  // ** Hooks
+  const navigate = useNavigate();
+
   const { skin } = useSkin();
 
   const source = skin === "dark" ? illustrationsDark : illustrationsLight;
 
-  const [checkBox, setCheckBox] = useState(true);
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(LoginVal),
+  });
 
-  const navigate = useNavigate();
-
-  const handleCheckBox = (e) => {
-    setCheckBox(e.target.checked);
-  };
-
-  const LoginVal = yup.object().shape({
-    phoneOrGmail: yup.string().required("این فیلد الزامی است"),
-    password: yup.string().required("این فیلد الزامی است")
-  })
-
-  const loginUser = async (values) => {
-    const Obj = {
-      phoneOrGmail: values.phoneOrGmail,
-      password: values.password,
-      rememberMe: checkBox,
-    };
-
+  const onSubmit = async (data) => {
     try {
-      const user = await ApiLogin(Obj);
-        setItem("token", user.token)
+      const loginUser = await ApiLogin(data);
 
-        setItem("phoneOrGmail", Obj.phoneOrGmail)
+      if (loginUser.success === true) {
+        if (
+          loginUser.roles.includes("Administrator") ||
+          loginUser.roles.includes("Teacher")
+        ) {
+          toast.success("با موفقیت وارد شدید !");
 
-        setItem("password", Obj.password)
-        
-        setItem("UserRole" , user.roles)
-        
-        setItem("rememberMe", Obj.rememberMe)
-
-        navigate("/Dashboard");
-
-        if(user.success == true) toast.success("لاگیم با موفقیت انجام شد")
-        else toast.error(user.meesage)
-        
-
+          setItem("token", loginUser.token);
+          setItem("userId", loginUser.id);
+          navigate("/Dashboard");
+        } else {
+          toast.error("شما دسترسی ورود به پنل ادمین را ندارید !");
+        }
+      } else {
+        toast.error("کاربری با اطلاعات شما وجود ندارد !");
+      }
     } catch (error) {
-      console.log(error);
+      toast.error("مشکلی در فرایند ورود به وجود آمد !");
     }
   };
 
+  useEffect(() => {
+    const token = getItem("token");
 
-
-
-
+    if (token) navigate("/Dashboard");
+  }, []);
 
   return (
     <div className="auth-wrapper auth-cover">
       <Row className="auth-inner m-0">
-        <Link className="brand-logo" to="/">
+        <Link className="brand-logo" to="/" onClick={(e) => e.preventDefault()}>
           <svg viewBox="0 0 139 95" version="1.1" height="28">
             <defs>
               <linearGradient
@@ -154,71 +155,73 @@ const Login = () => {
               </g>
             </g>
           </svg>
-          <h2 className="brand-text text-primary ms-1">Vuexy</h2>
+          <h2 className="brand-text text-primary ms-1">Power</h2>
         </Link>
-        <Col className="d-none d-lg-flex align-items-center p-2" lg="8" sm="12">
-          <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
-            <img className="img-fluid" src={source} alt="Login Cover" />
-          </div>
-        </Col>
         <Col
           className="d-flex align-items-center auth-bg px-2 p-lg-5"
           lg="4"
           sm="12"
         >
           <Col className="px-xl-2 mx-auto" sm="8" md="6" lg="12">
-            <CardTitle dir="rtl" tag="h2" className="fw-bold mb-1">
-              خوش امدی به پنل 👋
+            <CardTitle tag="h2" className="fw-bold mb-1">
+              به پنل ادمین خوش آمدید 👋
             </CardTitle>
-            <CardText dir="rtl" className="mb-2">
-              لطفا لاگین کنید و شروع به کاربری کنید
+            <CardText className="mb-2">
+              برای ورود به پنل ادمین باید وارد سایت شوید !
             </CardText>
-            <Formik
-              initialValues={{ phoneOrGmail: "", password: "" }}
-              onSubmit={(values) => loginUser(values)}
-              validationSchema={LoginVal}
+            <Form
+              className="auth-login-form mt-2"
+              onSubmit={handleSubmit((data) => onSubmit(data))}
             >
-              <Form>
-                <div dir="rtl" className="mb-1 flex flex-wrap ">
-                  <h4 className=""> ایمیل یا شماره</h4>
-                  <Field
-                    name="phoneOrGmail"
-                    placeholder="ایمل یا شماره خود را وارد "
-                    className="w-100 p-1"
-                  />
-                  <ErrorMessage className="text-center" name="phoneOrGmail" component={"p"} />
-                </div>
-                <div dir="rtl" className="mb-2 ">
-                  <div className=" d-flex justify-content-between">
-                    <h4 className="">پسورد</h4>
-                  </div>
-                  <Field
-                    placeholder="پسورد خود را وارد کنید"
-                    className="w-100 rounded-2 p-1"
-                    name="password"
-                  />
-                 <ErrorMessage className="text-center" name="password" component={"p"} />
-                  <Link to="/forgot-password">
-                    <h6 className="mt-1">فراموشی رمز؟</h6>
-                  </Link>
-                </div>
-
-                <div className="form-check mb-1 w-100">
-                  <input
-                    checked
-                    type="checkbox"
-                    id="remember-me"
-                    onChange={handleCheckBox}
-                  />
-                  <Label className="form-check-label" for="remember-me">
-                    مرا به خاطر بسپار
+              <div className="mb-1">
+                <Label className="form-label" for="login-email">
+                  ایمیل
+                </Label>
+                <Controller
+                  id="login-email"
+                  name="phoneOrGmail"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      placeholder="شماره موبایل یا جیمیل"
+                      invalid={errors.phoneOrGmail && true}
+                      {...field}
+                    />
+                  )}
+                />
+                <ErrorMessage>{errors?.phoneOrGmail?.message}</ErrorMessage>
+              </div>
+              <div className="mb-1">
+                <div className="d-flex justify-content-between">
+                  <Label className="form-label" for="login-password">
+                    رمز عبور
                   </Label>
                 </div>
-                <Button type="submite" color="primary" block>
-                  Sign in
-                </Button>
-              </Form>
-            </Formik>
+                <InputPasswordToggle
+                  className="input-group-merge"
+                  id="login-password"
+                  invalid={errors.password && true}
+                  {...register("password")}
+                />
+                <ErrorMessage>{errors?.password?.message}</ErrorMessage>
+              </div>
+              <div className="form-check mb-1">
+                <Controller
+                  id="rememberMe"
+                  name="rememberMe"
+                  control={control}
+                  render={({ field }) => (
+                    <Input type="checkbox" id="rememberMe" {...field} />
+                  )}
+                />
+                <Label className="form-check-label" for="rememberMe">
+                  مرا به خاطر بسپار
+                </Label>
+              </div>
+              <Button color="primary" block>
+                ورود
+              </Button>
+            </Form>
             <p className="text-center mt-1">
               <span className="me-25">New on our platform?</span>
               <Link to="/register">
@@ -226,6 +229,11 @@ const Login = () => {
               </Link>
             </p>
           </Col>
+        </Col>
+        <Col className="d-none d-lg-flex align-items-center p-5" lg="8" sm="12">
+          <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
+            <img className="img-fluid" src={source} alt="Login Cover" />
+          </div>
         </Col>
       </Row>
     </div>

@@ -1,4 +1,4 @@
-import { Mail, Home, Airplay, Circle , User , Book } from "react-feather";
+import { Mail, Home, Airplay, Circle , User , Book, UserPlus, Code } from "react-feather";
 
 export default [
   {
@@ -10,13 +10,13 @@ export default [
   {
     id: "AddUser",
     title: "اضافه کردن کاربر",
-    icon: <Circle size={20} />,
+    icon: <UserPlus size={20} />,
     navLink: "/AddUser"
   },
   {
     id: "Course",
     title: "مدیریت دوره ",
-    icon: <User size={15} />,
+    icon: <Code size={15} />,
     children: [
       {
           id: "CourseList",

@@ -1,5 +1,5 @@
 // ** React Imports
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // ** Custom Components
 import Avatar from "@components/avatar";
@@ -26,9 +26,35 @@ import {
 
 // ** Default Avatar Image
 import defaultAvatar from "@src/assets/images/portrait/small/avatar-s-11.jpg";
-import { getItem } from "../../../../core/services/common/storage.services";
+import { clearStorage, getItem } from "../../../../core/services/common/storage.services";
+import { GetUserInfo } from "../../../../core/services/api/userDetail";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const UserDropdown = () => {
+  const [userName, setUserName] = useState([])
+
+const navigate = useNavigate()
+
+const handelLogOut = () => {
+  navigate("/login")
+  clearStorage()
+}
+
+const fetchUserName = async () => {
+  try {
+    const res = await GetUserInfo()
+    setUserName(`${res.lName}--${res.fName}`)
+  } catch (error) {
+    toast.error("مشکلی در دریافت اطلاعات کاربر پیش امده")
+  }
+}
+
+useEffect(() => {
+  fetchUserName()
+}, [])
+
+
   return (
     <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
       <DropdownToggle
@@ -38,7 +64,7 @@ const UserDropdown = () => {
         onClick={(e) => e.preventDefault()}
       >
         <div className="user-nav d-sm-flex d-none">
-          <span className="user-name fw-bold">John Doe</span>
+          <span className="user-name fw-bold">{userName}</span>
           <span className="user-status">{getItem("UserRole")}</span>
         </div>
         <Avatar
@@ -53,19 +79,6 @@ const UserDropdown = () => {
           <User size={14} className="me-75" />
           <span className="align-middle">Profile</span>
         </DropdownItem>
-        <DropdownItem tag={Link} to="/" onClick={(e) => e.preventDefault()}>
-          <Mail size={14} className="me-75" />
-          <span className="align-middle">Inbox</span>
-        </DropdownItem>
-        <DropdownItem tag={Link} to="/" onClick={(e) => e.preventDefault()}>
-          <CheckSquare size={14} className="me-75" />
-          <span className="align-middle">Tasks</span>
-        </DropdownItem>
-        <DropdownItem tag={Link} to="/" onClick={(e) => e.preventDefault()}>
-          <MessageSquare size={14} className="me-75" />
-          <span className="align-middle">Chats</span>
-        </DropdownItem>
-        <DropdownItem divider />
         <DropdownItem
           tag={Link}
           to="/pages/"
@@ -82,7 +95,7 @@ const UserDropdown = () => {
           <HelpCircle size={14} className="me-75" />
           <span className="align-middle">FAQ</span>
         </DropdownItem>
-        <DropdownItem tag={Link} to="/login">
+        <DropdownItem onClick={handelLogOut}>
           <Power size={14} className="me-75" />
           <span className="align-middle">Logout</span>
         </DropdownItem>

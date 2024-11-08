@@ -169,7 +169,7 @@ return(
 <Card>
                 <CardHeader>
                                 <CardText>
-                                            لیست مدیریت خیرات
+                                            لیست مدیریت خبرات
                                 </CardText>
                 </CardHeader>
         </Card>

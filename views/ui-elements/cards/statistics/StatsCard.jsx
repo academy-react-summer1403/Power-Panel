@@ -1,6 +1,11 @@
 // ** Third Party Components
+<<<<<<< HEAD
+import classnames from "classnames";
+import { UserCheck, BookOpen, Users } from "react-feather";
+=======
 import classnames from 'classnames'
 import { TrendingUp, User, Box, DollarSign } from 'react-feather'
+>>>>>>> parent of 4c2c9324 (Add node_modules to .gitignore)
 
 // ** Custom Components
 import Avatar from '@components/avatar'
@@ -11,10 +16,17 @@ import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col } from 'react
 const StatsCard = ({ cols }) => {
   const data = [
     {
+<<<<<<< HEAD
+      title: dashboardData?.allUser || 0,
+      subtitle: "تعداد کاربران",
+      color: "light-info",
+      icon: <Users size={24} />,
+=======
       title: '230k',
       subtitle: 'Sales',
       color: 'light-primary',
       icon: <TrendingUp size={24} />
+>>>>>>> parent of 4c2c9324 (Add node_modules to .gitignore)
     },
     {
       title: '8.549k',

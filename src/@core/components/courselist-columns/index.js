@@ -62,7 +62,6 @@ export const Coursecolumns = [
     name: "سطح دوره",
     minWidth: "164px",
     sortField: "levelName",
-    // selector: row => row.levelName,
     cell: (row) => {
       return (
         <h4>
