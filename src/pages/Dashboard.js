@@ -1,7 +1,7 @@
 import {CardHeader , Card , CardBody , CardText } from "reactstrap"
 
 // ** React Imports
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 // ** Reactstrap Imports
 import { Row, Col } from 'reactstrap'
@@ -17,6 +17,7 @@ import StatsCard from '../../views/ui-elements/cards/statistics/StatsCard'
 import '@styles/react/libs/charts/apex-charts.scss'
 import '@styles/base/pages/dashboard-ecommerce.scss'
 import InvoiceList from "../@core/components/list"
+import { DashBoardAPI } from "../core/services/api/Dashboard"
 
 const Dashboard = () => {
   // ** Context
@@ -24,6 +25,17 @@ const Dashboard = () => {
 
   // ** vars
   const trackBgColor = '#e9ecef'
+
+  const [dashboardData, setDashboardData] = useState([])
+
+  const fetchDashboardData = async () => {
+    const res = await DashBoardAPI()
+    setDashboardData(res)
+  }
+  
+  useEffect(() => {
+    fetchDashboardData()
+  }, [])
 
   return (
     <div id='dashboard-ecommerce'>
@@ -37,10 +49,10 @@ const Dashboard = () => {
       </Card>
       <Row className='match-height'>
         <Col xl='4' md='6' xs='12'>
-          <CardMedal />
+          <CardMedal dashboardData={dashboardData} />
         </Col>
         <Col xl='8' md='6' xs='12'>
-          <StatsCard cols={{ xl: '3', sm: '6' }} />
+          <StatsCard dashboardData={dashboardData} cols={{ xl: '3', sm: '6' }} />
         </Col>
       </Row>
       <Row className='match-height'>

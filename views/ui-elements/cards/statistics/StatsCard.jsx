@@ -1,6 +1,6 @@
 // ** Third Party Components
 import classnames from "classnames";
-import { UserCheck, BookOpen, Users } from "react-feather";
+import { UserCheck, BookOpen, Users, User, Book } from "react-feather";
 
 // ** Custom Components
 import Avatar from '@components/avatar'
@@ -8,7 +8,10 @@ import Avatar from '@components/avatar'
 // ** Reactstrap Imports
 import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col } from 'reactstrap'
 
-const StatsCard = ({ cols }) => {
+const StatsCard = ({ cols , dashboardData }) => {
+
+
+
   const data = [
     {
       title: dashboardData?.allUser || 0,
@@ -17,23 +20,17 @@ const StatsCard = ({ cols }) => {
       icon: <Users size={24} />,
     },
     {
-      title: '8.549k',
-      subtitle: 'Customers',
-      color: 'light-info',
-      icon: <User size={24} />
+      title: dashboardData?.inCompeletUserCount || 0,
+      subtitle: "کاربر تکمیل شده",
+      color: "light-success",
+      icon: <UserCheck size={24} />,
     },
     {
-      title: '1.423k',
-      subtitle: 'Products',
-      color: 'light-danger',
-      icon: <Box size={24} />
+      title: dashboardData?.allReserve || 0,
+      subtitle: "دوره رزرو شده",
+      color: "light-danger",
+      icon: <Book size={24} />,
     },
-    {
-      title: '$9745',
-      subtitle: 'Revenue',
-      color: 'light-success',
-      icon: <DollarSign size={24} />
-    }
   ]
 
   const renderData = () => {
@@ -63,8 +60,7 @@ const StatsCard = ({ cols }) => {
   return (
     <Card className='card-statistics'>
       <CardHeader>
-        <CardTitle tag='h4'>Statistics</CardTitle>
-        <CardText className='card-text font-small-2 me-25 mb-0'>Updated 1 month ago</CardText>
+        <CardTitle tag='h4'>اطلاعات</CardTitle>
       </CardHeader>
       <CardBody className='statistics-body'>
         <Row>{renderData()}</Row>

@@ -64,7 +64,7 @@ useEffect(() => {
         onClick={(e) => e.preventDefault()}
       >
         <div className="user-nav d-sm-flex d-none">
-          <span className="user-name fw-bold">{userName}</span>
+          <span className="user-name fw-bold mb-1">{userName}</span>
           <span className="user-status">{getItem("UserRole")}</span>
         </div>
         <Avatar

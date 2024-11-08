@@ -67,6 +67,7 @@ const Login = () => {
 
           setItem("token", loginUser.token);
           setItem("userId", loginUser.id);
+          setItem("UserRole" , loginUser.roles);
           navigate("/Dashboard");
         } else {
           toast.error("شما دسترسی ورود به پنل ادمین را ندارید !");
