@@ -32,6 +32,12 @@ export default [
         navLink: "/CreateCourse"
       },
       {
+        id: "CourseCat",
+        title: "لیست کتگوری ها",
+        icon : <Circle size={15} /> ,
+        navLink: "/CourseCat"
+      },
+      {
         id: "CreateCourseCat",
         title: "ساخت کتگوری",
         icon : <Circle size={15} /> ,
