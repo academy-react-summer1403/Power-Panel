@@ -58,6 +58,15 @@ export const Newscolumns = [
     ),
   },
   {
+    name : "نام مدرس",
+    minWidth : "150px" , 
+    cell : (row) => {
+      return(
+        <h5> {row.addUserFullName} </h5>
+      )
+    }
+  },
+  {
     name: "تعداد لایک ها",
     minWidth : "70px",
     cell : (row) => {
@@ -76,15 +85,6 @@ export const Newscolumns = [
     }
   },
   {
-    name : "نام مدرس",
-    minWidth : "150px" , 
-    cell : (row) => {
-      return(
-        <h5> {row.addUserFullName} </h5>
-      )
-    }
-  },
-  {
     sortable: true,
     name: "تاریخ انتشار",
     sortable: true,
@@ -92,33 +92,6 @@ export const Newscolumns = [
     sortField: "StartTime",
     sortName: "StartTime",
     cell: (row) => <span>{DtaeConvert(row.insertDate) }  </span>,
-},
-{
-  sortable: true,
-  minWidth: "102px",
-  sortField: "lastUpdate",
-  name: <TrendingUp size={14} />,
-  // selector: row => row.invoiceStatus,
-  cell: (row) => {
-    const color = invoiceStatusObj[row.invoiceStatus]
-        ? invoiceStatusObj[row.invoiceStatus].color
-        : "primary",
-      Icon = invoiceStatusObj[row.invoiceStatus]
-        ? invoiceStatusObj[row.invoiceStatus].icon
-        : Edit;
-    return (
-      <Fragment>
-        <Avatar
-          color={color}
-          icon={<Icon size={14} />}
-          id={`av-tooltip-${row.id}`}
-        />
-        <UncontrolledTooltip placement="top" target={`av-tooltip-${row.id}`}>
-          {DtaeConvert(row.lastUpdate)}
-        </UncontrolledTooltip>
-      </Fragment>
-    );
-  },
 },
   {
     name: "موارد دیگر",
@@ -135,7 +108,7 @@ export const Newscolumns = [
           <DropdownMenu end>
             <DropdownItem
               tag={Link}
-              to={`/courses/${row.courseId}`}
+              to={`/News/${row.id}`}
               className="w-100"
             >
               <Edit size={14} className="me-50" />

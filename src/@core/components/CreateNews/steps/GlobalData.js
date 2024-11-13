@@ -23,7 +23,7 @@ import { GetNewsCatApi } from "../../../../core/services/api/NewsApi";
 //  Custom Components
 import FileUploaderSingle from "../../FileUploaderSingle";
 
-import { ConvertOpt } from "../../../../utility/ConvertHelper";
+import { convertOptions } from "../../../../utility/ConvertHelper";
 
 const defaultValues = {
   title: "",
@@ -94,7 +94,7 @@ const GlobalData = ({
       try {
         const getNewsCategoryLists = await GetNewsCatApi();
 
-        const convertNewsCategoryLists = ConvertOpt(getNewsCategoryLists);
+        const convertNewsCategoryLists = convertOptions(getNewsCategoryLists);
 
         setNewsCategoryLists(convertNewsCategoryLists);
       } catch (error) {

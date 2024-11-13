@@ -54,7 +54,7 @@ const Describe = ({
         linkTool: {
           class: LinkTool,
           config: {
-            endpoint: "http://localhost:3000/fetchUrl", // Your backend endpoint for url data fetching
+            endpoint: "http://localhost:3000/fetchUrl", 
           },
         },
         raw: RawTool,
@@ -62,8 +62,8 @@ const Describe = ({
           class: ImageTool,
           config: {
             endpoints: {
-              byFile: "http://localhost:8008/uploadFile", // Your backend file uploader endpoint
-              byUrl: "http://localhost:8008/fetchUrl", // Your endpoint that provides uploading by Url
+              byFile: "http://localhost:8008/uploadFile", 
+              byUrl: "http://localhost:8008/fetchUrl",
             },
           },
         },
