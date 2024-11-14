@@ -10,7 +10,7 @@ import { ArrowLeft, ArrowRight } from "react-feather";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 // Validation Import
-import { createCourseStepTwoVal } from "../../../../core/Validation/Course/CreateCat";
+import { createCourseStepTwoVal } from "../../../../core/Validation/Course";
 
 // ** Reactstrap Imports
 import { Form, Label, Input, Row, Col, Button, FormFeedback } from "reactstrap";

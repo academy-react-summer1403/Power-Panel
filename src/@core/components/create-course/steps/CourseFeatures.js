@@ -23,7 +23,7 @@ import {
 } from "reactstrap";
 
 // ** Validation Import
-import { createCourseStepThreeVal } from "../../../../core/Validation/Course/CreateCat";
+import { createCourseStepThreeVal } from "../../../../core/Validation/Course";
 
 // ** Utils
 import { selectThemeColors } from "../../../../utility/Utils";

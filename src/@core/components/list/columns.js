@@ -1,14 +1,13 @@
 // ** React Imports
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { DtaeConvert } from "../../../core/services/utils/date";
 
 // ** Custom Components
 import Avatar from "@components/avatar";
 
 // ** Reactstrap Imports
-import {
-  Badge,
-} from "reactstrap";
+import { Badge } from "reactstrap";
 
 // ** Third Party Components
 import {
@@ -22,7 +21,9 @@ import {
   CheckCircle,
   ArrowDownCircle,
 } from "react-feather";
-import { DtaeConvert } from "../../../core/services/utils/date";
+
+// ** Default Image
+import blankThumbnail from "../../../assets/images/avatars/10-small.png";
 
 // ** Vars
 const invoiceStatusObj = {
@@ -71,7 +72,19 @@ export const columns = [
     name: "عکس",
     // selector: row => row.invoiceStatus,
     cell: (row) => {
-      return <Avatar img={`${row.pictureAddress}`} />;
+      return (
+        <img
+          src={
+            !row?.pictureAddress ||
+            row?.pictureAddress === null ||
+            row?.pictureAddress === "<string>"
+              ? blankThumbnail
+              : row?.pictureAddress
+          }
+          className="course-column-image"
+          style={{ width: "30px", height: "30px", borderRadius: "35px" }}
+        />
+      );
     },
   },
   {
@@ -120,25 +133,29 @@ export const columns = [
     },
   },
   {
-      name: "دانش اموز بودن",
-      minWidth: "50px",
-      cell: (row) => {
-        const IsStudent = row.isStudent; 
-        const CheckUser = () => {
-          return IsStudent ? "بله" : "خیر"; 
-        }
-        return <Badge color={IsStudent? "success" : "danger"}> {CheckUser()} </Badge>; 
-      },
+    name: "دانش اموز بودن",
+    minWidth: "50px",
+    cell: (row) => {
+      const IsStudent = row.isStudent;
+      const CheckUser = () => {
+        return IsStudent ? "بله" : "خیر";
+      };
+      return (
+        <Badge color={IsStudent ? "success" : "danger"}> {CheckUser()} </Badge>
+      );
     },
+  },
   {
     name: "معلم بودن",
     minWidth: "50px",
     cell: (row) => {
       const IsTeacher = `${row.isTeacher}`;
       const CheckUser = () => {
-        return IsTeacher ? "بله" : "خیر"; 
-      }
-      return <Badge color={IsTeacher? "success" : "danger"}> {CheckUser()} </Badge>;
+        return IsTeacher ? "بله" : "خیر";
+      };
+      return (
+        <Badge color={IsTeacher ? "success" : "danger"}> {CheckUser()} </Badge>
+      );
     },
   },
   {

@@ -25,7 +25,7 @@ import {
 } from "reactstrap";
 
 // ** Default Avatar Image
-import defaultAvatar from "@src/assets/images/portrait/small/avatar-s-11.jpg";
+import defaultAvatar from "../../../../assets/images/avatars/10-small.png";
 import { clearStorage, getItem } from "../../../../core/services/common/storage.services";
 import { GetUserInfo } from "../../../../core/services/api/userDetail";
 import { useEffect, useState } from "react";
@@ -33,6 +33,7 @@ import toast from "react-hot-toast";
 
 const UserDropdown = () => {
   const [userName, setUserName] = useState([])
+  const [userProfile, setUserProfile] = useState([])
 
 const navigate = useNavigate()
 
@@ -41,17 +42,18 @@ const handelLogOut = () => {
   clearStorage()
 }
 
-const fetchUserName = async () => {
+const fetchUserDetail = async () => {
   try {
     const res = await GetUserInfo()
     setUserName(`${res.lName}--${res.fName}`)
+    setUserProfile(res)
   } catch (error) {
     toast.error("مشکلی در دریافت اطلاعات کاربر پیش امده")
   }
 }
 
 useEffect(() => {
-  fetchUserName()
+  fetchUserDetail()
 }, [])
 
 
@@ -68,7 +70,11 @@ useEffect(() => {
           <span className="user-status">{getItem("UserRole")}</span>
         </div>
         <Avatar
-          img={defaultAvatar}
+          img={
+            userProfile?.currentPictureAddress == "Not-set"
+              ? defaultAvatar
+              : userProfile?.currentPictureAddress
+          }
           imgHeight="40"
           imgWidth="40"
           status="online"

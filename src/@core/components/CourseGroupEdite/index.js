@@ -16,7 +16,7 @@ import Breadcrumbs from "@components/breadcrumbs";
 import { addCourseGroupAPI } from "../../../core/services/api/CreateCourseCategoryApi";
 import { updateCourseGroupAPI } from "../../../core/services/api/EditeCourseCat";
 import { GetTechListAPI } from "../../../core/services/api/GetCourseTech";
-import { courseGroupVal } from "../../../core/Validation/Course/CreateCat";
+import { courseGroupVal } from "../../../core/Validation/Course";
 
 // ** Utils
 import { convertOptions } from "../../../utility/ConvertHelper";

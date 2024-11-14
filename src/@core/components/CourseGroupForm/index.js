@@ -13,7 +13,7 @@ import { Controller, useForm } from "react-hook-form";
 import { addCourseGroupAPI } from "../../../core/services/api/CreateCourseCategoryApi";
 import { updateCourseGroupAPI } from "../../../core/services/api/EditeCourseCat";
 import { GetTechListAPI } from "../../../core/services/api/GetCourseTech";
-import { courseGroupVal } from "../../../core/Validation/Course/CreateCat";
+import { courseGroupVal } from "../../../core/Validation/Course";
 
 // ** Utils
 import { convertOptions } from "../../../utility/ConvertHelper";
@@ -37,11 +37,7 @@ import {
   Spinner,
 } from "reactstrap";
 
-// ** Styles
-import "@styles/base/pages/page-blog.scss";
-import "@styles/base/plugins/forms/form-quill-editor.scss";
-import "@styles/react/libs/editor/editor.scss";
-import "@styles/react/libs/react-select/_react-select.scss";
+
 
 const CourseCatForm = ({ group }) => {
   // ** States

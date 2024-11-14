@@ -3,20 +3,9 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-// ** Reactstrap Imports
-import {
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledDropdown,
-} from "reactstrap";
 
 // ** Icons Imports
-import { Edit, Eye, MoreVertical } from "react-feather";
-
-// ** Core Imports
-
-// ** Utils
+import { Edit } from "react-feather";
 
 // ** Image Imports
 import blankThumbnail from "../../../assets/images/icons/technology/react.png";

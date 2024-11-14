@@ -15,7 +15,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Button, Col, Form, FormFeedback, Input, Label, Row } from "reactstrap";
 
 // ** Core Import
-import { createCourseStepOneVal } from "../../../../core/Validation/Course/CreateCat";
+import { createCourseStepOneVal } from "../../../../core/Validation/Course";
 
 // ** Custom Components
 import FileUploaderSingle from "../../FileUploaderSingle";
@@ -109,7 +109,7 @@ const GlobalData = ({
               render={({ field }) => (
                 <Input
                   id="title"
-                  placeholder="مانند: دوره جامع react"
+                  placeholder="اسم دوره..."
                   invalid={errors.title && true}
                   {...field}
                 />
