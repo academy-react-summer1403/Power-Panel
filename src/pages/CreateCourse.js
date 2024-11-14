@@ -1,10 +1,10 @@
-import CreateCourseForm from "../@core/components/CreateCourse/CreateCourseForm";
+import CreateCoursePage from "../@core/components/create-course/CreateCourseForm";
 
-// 
+
 const CreateCourses = () => {
   return (
     <>
-      <CreateCourseForm/>
+      <CreateCoursePage/>
     </>
   );
 };

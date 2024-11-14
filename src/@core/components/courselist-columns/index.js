@@ -31,7 +31,7 @@ import {
   ArrowDownCircle,
 } from "react-feather";
 import { DtaeConvert } from "../../../core/services/utils/date";
-import { numb } from "../../../core/services/utils/numbHelp";
+import { formatCostWithUnit } from "../../../utility/formatCostWithUnit";
 
 // ** Vars
 const invoiceStatusObj = {
@@ -93,7 +93,7 @@ export const Coursecolumns = [
     sortable: true,
     minWidth: "150px",
     sortField: "cost",
-    cell: (row) => <span>{numb(row.cost) || 0} تومان</span>,
+    cell: (row) => <Badge color="success"> {formatCostWithUnit(row.cost) || 0} تومان</Badge>,
   },
   {
     sortable: true,

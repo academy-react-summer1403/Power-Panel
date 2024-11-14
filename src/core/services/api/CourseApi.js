@@ -12,7 +12,11 @@ export const getCoursesStepOne = async () => {
 
 export const Post = async (form) => {
   try {
-    const res = await http.post("/Course", form);
+    const res = await http.post("/Course", form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return res;
   } catch (error) {
     console.log(error);
