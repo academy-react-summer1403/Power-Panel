@@ -25,7 +25,7 @@ import {
 } from "reactstrap";
 
 // ** Default Avatar Image
-import defaultAvatar from "../../../../assets/images/avatars/10-small.png";
+import defaultAvatar from "../../../../assets/images/avatars/avatar-blank.png";
 import { clearStorage, getItem } from "../../../../core/services/common/storage.services";
 import { GetUserInfo } from "../../../../core/services/api/userDetail";
 import { useEffect, useState } from "react";

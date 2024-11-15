@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 //  Custom Components
-import BreadCrumbs from "@components/breadcrumbs";
 import Wizard from "@components/wizard";
 
 //  Steps

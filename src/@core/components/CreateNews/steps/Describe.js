@@ -1,16 +1,16 @@
 //  React Imports
-import Checklist from "@editorjs/checklist";
-import Delimiter from "@editorjs/delimiter";
-import EditorJS from "@editorjs/editorjs";
-import Embed from "@editorjs/embed";
-import Header from "@editorjs/header";
-import ImageTool from "@editorjs/image";
-import LinkTool from "@editorjs/link";
-import List from "@editorjs/list";
-import Quote from "@editorjs/quote";
-import RawTool from "@editorjs/raw";
-import Warning from "@editorjs/warning";
-import Table from "editorjs-table";
+import Checklist from "../../../@editorjs/checklist";
+import Delimiter from "../../../@editorjs/delimiter";
+import EditorJS from "../../../@editorjs/editorjs";
+import Embed from "../../../@editorjs/embed";
+import Header from "../../../@editorjs/header";
+import ImageTool from "../../../@editorjs/image";
+import LinkTool from "../../../@editorjs/link";
+import List from "../../../@editorjs/list";
+import Quote from "../../../@editorjs/quote";
+import RawTool from "../../../@editorjs/raw";
+import Warning from "../../../@editorjs/warning";
+import Table from "../../../editorjs-table";
 import { Fragment, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { Button, Spinner } from "reactstrap";

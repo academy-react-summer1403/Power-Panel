@@ -23,7 +23,7 @@ import {
 } from "react-feather";
 
 // ** Default Image
-import blankThumbnail from "../../../assets/images/avatars/10-small.png";
+import blankThumbnail from "../../../assets/images/avatars/avatar-blank.png";
 
 // ** Vars
 const invoiceStatusObj = {
@@ -70,7 +70,6 @@ export const columns = [
     minWidth: "30px",
     sortField: "invoiceStatus",
     name: "عکس",
-    // selector: row => row.invoiceStatus,
     cell: (row) => {
       return (
         <img

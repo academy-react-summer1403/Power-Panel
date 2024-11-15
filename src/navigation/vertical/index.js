@@ -63,6 +63,12 @@ export default [
           navLink : "/CreateNews" 
         },
         {
+          id : "CatList",
+          title: "لیست کتگوری ها",
+          icon : <Circle size={15} />,
+          navLink : "/NewsCatList"
+        },
+        {
           id:"CreateNewsCat",
           title:"ساخت کتگوری خبر",
           icon: <Circle size={15}/>,

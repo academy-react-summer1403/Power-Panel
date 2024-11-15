@@ -77,7 +77,7 @@ const CategoryForm = ({ category }) => {
           `دسته بندی با موفقیت ${category ? "ویرایش" : "ایجاد"} شد !`
         );
 
-        navigate("/");
+        navigate("/NewsCatList");
       } else {
         toast.error(
           `مشکلی در ${category ? "ویرایش" : "ایجاد"} دسته بندی به وجود آمد !`
@@ -220,7 +220,7 @@ const CategoryForm = ({ category }) => {
                     </Button>
                     <Button
                       tag={Link}
-                      to="/categories"
+                      to="/NewsCatList"
                       color="secondary"
                       outline
                     >

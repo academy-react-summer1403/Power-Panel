@@ -117,22 +117,6 @@ const CustomHeader = ({
           </div>
 
           <div className="d-flex align-items-center table-header-actions">
-            <UncontrolledDropdown className="me-1">
-              <DropdownToggle color="secondary" caret outline>
-                <Share className="font-small-4 me-50" />
-                <span className="align-middle">خروحی</span>
-              </DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem
-                  className="w-100"
-                  onClick={() => downloadCSV(courseGroups.courseGroupDtos)}
-                >
-                  <FileText className="font-small-4 me-50" />
-                  <span className="align-middle">CSV</span>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-
             <Button
               tag={Link}
               to="/create-course-group"
