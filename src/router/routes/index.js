@@ -40,6 +40,7 @@ const CourseCat = lazy(() => import("../../pages/CourseCatList"))
 const EditCourseCat = lazy(() => import("../../pages/EditCourseGroup"))
 const CreateNewsCat = lazy(() => import("../../pages/AddNewsCat"))
 const NewsCatList = lazy(() => import("../../pages/NewsCatList"))
+const UserDetail = lazy(() => import("../../pages/userDeatil"))
 
 // ** Merge Routes
 const Routes = [
@@ -55,6 +56,10 @@ const Routes = [
   {
     path: "/AddUser",
     element: <AddUser/>,
+  },
+  {
+    path:"/UseInfo/:id",
+    element: <UserDetail/>,
   },
   {
     path: "/CreateNews",

@@ -10,7 +10,7 @@ import List from "../../../@editorjs/list";
 import Quote from "../../../@editorjs/quote";
 import RawTool from "../../../@editorjs/raw";
 import Warning from "../../../@editorjs/warning";
-import Table from "../../../editorjs-table";
+import Table from "editorjs-table";
 import { Fragment, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { Button, Spinner } from "reactstrap";

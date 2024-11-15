@@ -8,3 +8,27 @@ export const GetUserInfo = async () => {
         console.log(error , "Error getting profile info")
     }
 }
+
+export const getUserById = async (userId) => {
+    try {
+      const response = await http.get(`/User/UserDetails/${userId}`);
+  
+      return response;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  export const DeleteUser = async (userId) => {
+    try {
+      const response = await http.delete("/User/DeleteUser", {
+        data: {
+          userId,
+        },
+      });
+  
+      return response;
+    } catch (error) {
+      return false;
+    }
+  };

@@ -30,6 +30,7 @@ import { clearStorage, getItem } from "../../../../core/services/common/storage.
 import { GetUserInfo } from "../../../../core/services/api/userDetail";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { renderRoleName} from "../../../../utility/RoleName"
 
 const UserDropdown = () => {
   const [userName, setUserName] = useState([])
@@ -67,7 +68,7 @@ useEffect(() => {
       >
         <div className="user-nav d-sm-flex d-none">
           <span className="user-name fw-bold mb-1">{userName}</span>
-          <span className="user-status">{getItem("UserRole")}</span>
+          <span className="user-status">{renderRoleName(getItem("UserRole"))}</span>
         </div>
         <Avatar
           img={
