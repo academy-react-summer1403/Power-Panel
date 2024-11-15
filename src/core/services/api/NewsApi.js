@@ -51,3 +51,22 @@ export const GetNewsCatApi = async () => {
   }
 };
 
+export const createNewsCatAPI = async (data) => {
+  try {
+    const response = await http.post("/News/CreateNewsCategory", data);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const updateNewsCatAPI = async (data) => {
+  try {
+    const response = await http.put("/News/UpdateNewsCategory", data);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};

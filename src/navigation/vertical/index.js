@@ -61,6 +61,12 @@ export default [
           title : "اضافه کردن خبر",
           icon : <Circle size={15} />,
           navLink : "/CreateNews" 
+        },
+        {
+          id:"CreateNewsCat",
+          title:"ساخت کتگوری خبر",
+          icon: <Circle size={15}/>,
+          navLink:"/CreateNewsCat"
         }
     ]
   }
