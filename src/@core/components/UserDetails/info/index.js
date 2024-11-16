@@ -119,7 +119,7 @@ const UserInfoCard = ({ user }) => {
               <div className="d-flex flex-column align-items-center text-center">
                 <div className="user-info">
                   <h4>
-                    {`${user?.fName || "کاربر"} ${user?.lName || "نابغه"}`}
+                    {`${user?.fName || "کاربر"} ${user?.lName || ""}`}
                   </h4>
                   <div className="d-flex flex-wrap justify-content-center gap-1 mt-1">
                     {user?.roles.map((role) => (

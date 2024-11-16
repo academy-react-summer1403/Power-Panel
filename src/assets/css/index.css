@@ -89,3 +89,26 @@ button,
 .table-tooltip {
   font-family: YekanBakh !important;
 }
+
+.dropzone {
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.dropzone:hover {
+  background-color: #f8f9fa;
+  border-color: #007bff;
+}
+
+.course-preview-image {
+  max-height: 200px;
+  max-width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.file-preview img {
+  border: 1px solid #ddd;
+  padding: 2px;
+  background: #fff;
+}
