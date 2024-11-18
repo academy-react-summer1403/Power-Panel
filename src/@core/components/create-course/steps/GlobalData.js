@@ -3,8 +3,6 @@ import { Fragment, useEffect } from "react";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
-import { dateFormatter } from "../../../../utility/DateFormatter";
-import { DtaeConvert } from "../../../../core/services/utils/date";
 
 // ** Third Party Components
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,6 +17,7 @@ import { createCourseStepOneVal } from "../../../../core/Validation/Course";
 
 // ** Custom Components
 import FileUploaderSingle from "../../FileUploaderSingle";
+import Autocomplete from "../../autocomplete";
 
 const GlobalData = ({
   stepper,
@@ -49,6 +48,10 @@ const GlobalData = ({
     startTime: "",
     endTime: "",
   };
+
+  const suggestions = [
+    "دوره", "دوستی", "دوربین", "درس", "دانشجو", "دانشگاه"
+  ];
 
   // ** Hooks
   const {
@@ -103,15 +106,17 @@ const GlobalData = ({
               عنوان
             </Label>
             <Controller
-              id="title"
-              name="title"
               control={control}
+              name="title"
               render={({ field }) => (
-                <Input
-                  id="title"
-                  placeholder="اسم دوره..."
-                  invalid={errors.title && true}
+                <Autocomplete
                   {...field}
+                  suggestions={suggestions}
+                  placeholder="اسم دوره..."
+                  filterKey="text"
+                  wrapperClass="autocomplete-wrapper"
+                  className={`form-control ${errors.title ? "is-invalid" : ""}`}
+                  onChange={(e) => field.onChange(e)}
                 />
               )}
             />
