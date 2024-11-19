@@ -115,11 +115,11 @@ const Comments = ({
       async preConfirm() {
         if (selectedRows.length) {
           selectedRows.map(async (comment) => {
-            const deleteCourseComment = await deleteCourseComment(
+            const DeleteCourseComment = await deleteCourseComment(
               comment.commentId
             );
 
-            if (deleteCourseComment.success) {
+            if (DeleteCourseComment.success) {
               toast.success("نظر با موفقیت حذف شد !");
 
               navigate("/comments");
@@ -162,12 +162,6 @@ const Comments = ({
             </div>
           </div>
           <div className="d-flex align-items-center">
-            <div
-              className="sidebar-toggle d-block d-lg-none ms-1"
-              onClick={() => setSidebarOpen(true)}
-            >
-              <Menu size="21" />
-            </div>
             <div className="d-flex align-content-center justify-content-between w-100">
               <InputGroup className="input-group-merge">
                 <InputGroupText>
@@ -182,6 +176,11 @@ const Comments = ({
               </InputGroup>
             </div>
           </div>
+          <CommentDetails
+            comment={comment}
+            openComment={openComment}
+            setOpenComment={setOpenComment}
+          />
         </div>
         <div
           className="app-action"
@@ -189,7 +188,7 @@ const Comments = ({
             display: "flex",
             justifyContent: "space-between",
             margin: "10px",
-            height: "30px"
+            height: "30px",
           }}
         >
           <div className="action-left form-check">
@@ -220,7 +219,7 @@ const Comments = ({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             >
               <ul className="list-inline m-0">
@@ -250,11 +249,6 @@ const Comments = ({
           )}
         </PerfectScrollbar>
       </div>
-      <CommentDetails
-        comment={comment}
-        openComment={openComment}
-        setOpenComment={setOpenComment}
-      />
     </Fragment>
   );
 };

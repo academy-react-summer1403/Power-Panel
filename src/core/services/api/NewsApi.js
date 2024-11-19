@@ -70,3 +70,23 @@ export const updateNewsCatAPI = async (data) => {
     return false;
   }
 };
+
+export const GetNewsById = async (id) => {
+  try {
+    const response = await http.get(`/News/${id}`);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const UpdateNews = async (data) => {
+  try {
+    const response = await http.put("/News/UpdateNews", data);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};

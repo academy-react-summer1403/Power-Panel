@@ -105,11 +105,11 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
       cancelButtonText: "انصراف",
       showLoaderOnConfirm: true,
       async preConfirm() {
-        const deleteCourseComment = await deleteCourseComment(
+        const DeleteCourseComment = await deleteCourseComment(
           comment.commentId
         );
 
-        if (deleteCourseComment.success) {
+        if (DeleteCourseComment.success) {
           toast.success("نظر با موفقیت حذف شد !");
 
           setOpenComment(false);
@@ -225,6 +225,7 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
       className={classnames("email-app-details comment-details", {
         show: openComment,
       })}
+      style={{ position: "relative", top: "0" }}
     >
       {comment !== null && comment !== undefined ? (
         <Fragment>

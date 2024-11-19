@@ -108,7 +108,7 @@ export const Newscolumns = [
           <DropdownMenu end>
             <DropdownItem
               tag={Link}
-              to={`/News/${row.id}`}
+              to={`/EditNews/${row.id}`}
               className="w-100"
             >
               <Edit size={14} className="me-50" />
