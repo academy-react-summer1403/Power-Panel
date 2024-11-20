@@ -12,6 +12,7 @@ import {
   DropdownToggle,
   UncontrolledTooltip,
   UncontrolledDropdown,
+  Button,
 } from "reactstrap";
 
 // ** Third Party Components
@@ -45,8 +46,8 @@ const invoiceStatusObj = {
 
 // ** Table columns
 export const Coursecolumns = [
-    {
-        name: "نام دوره",
+  {
+    name: "نام دوره",
     sortable: true,
     minWidth: "300px",
     sortField: "250px",
@@ -63,37 +64,31 @@ export const Coursecolumns = [
     minWidth: "164px",
     sortField: "levelName",
     cell: (row) => {
-      return (
-        <h4>
-          {row.levelName}
-        </h4>
-      );
+      return <h4>{row.levelName}</h4>;
     },
   },
   {
     name: "تعداد لایک ها",
-    minWidth : "70px",
-    cell : (row) => {
-        return(
-            <span> {row?.likeCount} </span>
-        )
-    }
+    minWidth: "70px",
+    cell: (row) => {
+      return <span> {row?.likeCount} </span>;
+    },
   },
   {
     name: "تعداد دیس لایک ها",
-    minWidth : "70px",
-    cell : (row) => {
-        return(
-            <span> {row?.dissLikeCount} </span>
-        )
-    }
+    minWidth: "70px",
+    cell: (row) => {
+      return <span> {row?.dissLikeCount} </span>;
+    },
   },
   {
     name: "قیمت",
     sortable: true,
     minWidth: "150px",
     sortField: "cost",
-    cell: (row) => <Badge color="success"> {formatCostWithUnit(row.cost) || 0} تومان</Badge>,
+    cell: (row) => (
+      <Badge color="success"> {formatCostWithUnit(row.cost) || 0} تومان</Badge>
+    ),
   },
   {
     sortable: true,
@@ -103,42 +98,43 @@ export const Coursecolumns = [
     sortField: "teacherName",
     sortName: "teacherName",
     cell: (row) => <span>{row.teacherName}</span>,
-},
-{
-  sortable: true,
-  minWidth: "102px",
-  sortField: "lastUpdate",
-  name: <TrendingUp size={14} />,
-  // selector: row => row.invoiceStatus,
-  cell: (row) => {
-    const color = invoiceStatusObj[row.invoiceStatus]
-        ? invoiceStatusObj[row.invoiceStatus].color
-        : "primary",
-      Icon = invoiceStatusObj[row.invoiceStatus]
-        ? invoiceStatusObj[row.invoiceStatus].icon
-        : Edit;
-    return (
-      <Fragment>
-        <Avatar
-          color={color}
-          icon={<Icon size={14} />}
-          id={`av-tooltip-${row.id}`}
-        />
-        <UncontrolledTooltip placement="top" target={`av-tooltip-${row.id}`}>
-          {DtaeConvert(row.lastUpdate)}
-        </UncontrolledTooltip>
-      </Fragment>
-    );
   },
-},
+  {
+    sortable: true,
+    minWidth: "102px",
+    sortField: "lastUpdate",
+    name: <TrendingUp size={14} />,
+    // selector: row => row.invoiceStatus,
+    cell: (row) => {
+      const color = invoiceStatusObj[row.invoiceStatus]
+          ? invoiceStatusObj[row.invoiceStatus].color
+          : "primary",
+        Icon = invoiceStatusObj[row.invoiceStatus]
+          ? invoiceStatusObj[row.invoiceStatus].icon
+          : Edit;
+      return (
+        <Fragment>
+            <Avatar
+              color={color}
+              icon={<Icon size={14} />}
+              id={`av-tooltip-${row.id}`}
+            />
+            <UncontrolledTooltip
+              placement="top"
+              target={`av-tooltip-${row.id}`}
+            >
+              اخرین تغییر
+              {DtaeConvert(row.lastUpdate)}
+            </UncontrolledTooltip>
+        </Fragment>
+      );
+    },
+  },
   {
     name: "موارد دیگر",
     minWidth: "110px",
     cell: (row) => (
       <div className="column-action d-flex align-items-center">
-        {/* <UncontrolledTooltip placement="top" target={`pw-tooltip-${row?.courseId}`}>
-          نمایش دوره
-        </UncontrolledTooltip> */}
         <UncontrolledDropdown>
           <DropdownToggle tag="span">
             <MoreVertical size={17} className="cursor-pointer" />
@@ -146,7 +142,7 @@ export const Coursecolumns = [
           <DropdownMenu end>
             <DropdownItem
               tag={Link}
-              to={`/courses/${row.courseId}`}
+              to={`/EditCourse/${row.courseId}`}
               className="w-100"
             >
               <Edit size={14} className="me-50" />
@@ -156,8 +152,8 @@ export const Coursecolumns = [
               tag="a"
               href="/"
               className="w-100"
-              onClick={(e) => e.preventDefault() }
-              >
+              onClick={(e) => e.preventDefault()}
+            >
               <Trash size={14} className="me-50" />
               <span className="align-middle">حذف</span>
             </DropdownItem>

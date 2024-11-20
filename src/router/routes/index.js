@@ -12,7 +12,6 @@ import PublicRoute from "@components/routes/PublicRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
-import CoursePage from "../../pages/CourseListPage";
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -32,7 +31,9 @@ const Register = lazy(() => import("../../pages/Register"));
 const ForgotPassword = lazy(() => import("../../pages/ForgotPassword"));
 const Error = lazy(() => import("../../pages/Error"));
 const AddUser = lazy(() => import("../../pages/AddUser"));
+const CoursePage = lazy(() => import("../../pages/CourseListPage"))
 const CreateCourse = lazy(() => import("../../pages/CreateCourse"))
+const EditCourse = lazy(() => import("../../pages/EditCourse"))
 const NewsList = lazy(() => import("../../pages/NewsList"))
 const CreateNews = lazy(() => import("../../pages/CreateNews"))
 const CreateCourseCategory = lazy(() => import("../../pages/CreateCourseCat"));
@@ -74,6 +75,10 @@ const Routes = [
   {
     path : "/CreateCourse",
     element: <CreateCourse/>
+  },
+  {
+    path : "/EditCourse/:id",
+    element: <EditCourse/>
   },
   {
     path:"/courseCatEdit/:id",

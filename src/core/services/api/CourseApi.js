@@ -57,3 +57,27 @@ export const GetGroupsOfCourse = async () => {
     return [];
   }
 };
+
+export const GetEditCourse = async (courseId) => {
+  try {
+    const res = await http.get("/Course/GetEditCourse", {
+      params: {
+        courseId,
+      },
+    });
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const UpdateCourse = async (course) => {
+  try {
+    const response = await http.put("/Course", course);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};

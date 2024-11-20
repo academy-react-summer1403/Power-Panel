@@ -38,54 +38,63 @@ import illustrationsLight from "@src/assets/images/pages/login-v2.svg";
 import "@styles/react/pages/page-authentication.scss";
 
 const Login = () => {
-  // ** Hooks
   const navigate = useNavigate();
-
   const { skin } = useSkin();
-
   const source = skin === "dark" ? illustrationsDark : illustrationsLight;
 
   const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
+      register,
+      handleSubmit,
+      control,
+      formState: { errors },
   } = useForm({
-    resolver: yupResolver(LoginVal),
+      resolver: yupResolver(LoginVal),
   });
 
   const onSubmit = async (data) => {
-    try {
-      const loginUser = await ApiLogin(data);
+      try {
+          const loginUser = await ApiLogin(data);
 
-      if (loginUser.success === true) {
-        if (
-          loginUser.roles.includes("Administrator") ||
-          loginUser.roles.includes("Teacher")
-        ) {
-          toast.success("با موفقیت وارد شدید !");
+          if (loginUser.success) {
+              if (loginUser.roles.includes("Administrator") || loginUser.roles.includes("Teacher")) {
+                  toast.success("با موفقیت وارد شدید !");
 
-          setItem("token", loginUser.token);
-          setItem("userId", loginUser.id);
-          setItem("UserRole" , loginUser.roles);
-          navigate("/Dashboard");
-        } else {
-          toast.error("شما دسترسی ورود به پنل ادمین را ندارید !");
-        }
-      } else {
-        toast.error("کاربری با اطلاعات شما وجود ندارد !");
+                  setItem("token", loginUser.token);
+                  setItem("userId", loginUser.id);
+                  setItem("UserRole", loginUser.roles);
+                  setItem("loginTime", new Date().toISOString());
+
+                  navigate("/Dashboard");
+              } else {
+                  toast.error("شما دسترسی ورود به پنل ادمین را ندارید !");
+              }
+          } else {
+              toast.error("کاربری با اطلاعات شما وجود ندارد !");
+          }
+      } catch (error) {
+          toast.error("مشکلی در فرایند ورود به وجود آمد !");
       }
-    } catch (error) {
-      toast.error("مشکلی در فرایند ورود به وجود آمد !");
-    }
   };
 
   useEffect(() => {
-    const token = getItem("token");
+      const token = getItem("token");
+      const loginTime = getItem("loginTime");
 
-    if (token) navigate("/Dashboard");
-  }, []);
+      if (token && loginTime) {
+          const currentTime = new Date();
+          const loginDate = new Date(loginTime);
+          const timeDiff = (currentTime - loginDate) / 1000 / 60 / 60;
 
+          if (timeDiff > 2) {
+              localStorage.clear(); 
+              navigate("/login"); 
+          } else {
+              navigate("/Dashboard");
+          }
+      } else {
+          localStorage.clear(); 
+      }
+  }, [navigate]);
   return (
     <div className="auth-wrapper auth-cover">
       <Row className="auth-inner m-0">

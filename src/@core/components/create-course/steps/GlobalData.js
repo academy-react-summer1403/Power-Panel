@@ -1,5 +1,6 @@
 // ** React Imports
 import { Fragment, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
@@ -17,7 +18,6 @@ import { createCourseStepOneVal } from "../../../../core/Validation/Course";
 
 // ** Custom Components
 import FileUploaderSingle from "../../FileUploaderSingle";
-import Autocomplete from "../../autocomplete";
 
 const GlobalData = ({
   stepper,
@@ -48,10 +48,6 @@ const GlobalData = ({
     startTime: "",
     endTime: "",
   };
-
-  const suggestions = [
-    "دوره", "دوستی", "دوربین", "درس", "دانشجو", "دانشگاه"
-  ];
 
   // ** Hooks
   const {
@@ -109,14 +105,11 @@ const GlobalData = ({
               control={control}
               name="title"
               render={({ field }) => (
-                <Autocomplete
-                  {...field}
-                  suggestions={suggestions}
+                <Input
+                  id="title"
                   placeholder="اسم دوره..."
-                  filterKey="text"
-                  wrapperClass="autocomplete-wrapper"
-                  className={`form-control ${errors.title ? "is-invalid" : ""}`}
-                  onChange={(e) => field.onChange(e)}
+                  invalid={errors.title && true}
+                  {...field}
                 />
               )}
             />
@@ -255,7 +248,7 @@ const GlobalData = ({
           <FileUploaderSingle files={files} setFiles={setFiles} image={course?.imageAddress} />
         </div>
         <div className="d-flex justify-content-between">
-          <Button type="button" color="primary" className="btn-prev" disabled>
+          <Button tag={Link} to="/CourseList" type="button" color="primary" className="btn-prev" >
             <ArrowLeft size={14} className="align-middle me-sm-25 me-0" />
             <span className="align-middle d-sm-inline-block d-none">قبلی</span>
           </Button>
