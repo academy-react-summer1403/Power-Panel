@@ -12,6 +12,7 @@ import {
   DropdownToggle,
   UncontrolledTooltip,
   UncontrolledDropdown,
+  Tooltip,
 } from "reactstrap";
 
 // ** Third Party Components
@@ -94,17 +95,23 @@ export const Newscolumns = [
     name: "موارد دیگر",
     minWidth: "110px",
     cell: (row) => {
+      // ** States
+      const [activeInactiveNewsTooltip, setActiveInactiveNewsTooltip] =
+        useState(false);
+
       const handleActiveInactiveNews = async () => {
         try {
           const data = {
             active: !row.isActive,
             id: row.id,
           };
-
+      
           const formData = onFormData(data);
-
+      
           const activeInactiveCourse = await activeNews(formData);
-
+          
+          console.log(activeInactiveCourse); // برای بررسی پاسخ از API
+      
           if (activeInactiveCourse.success) {
             toast.success(
               `خبر با موفقیت ${row.isActive ? "غیر فعال" : "فعال"} شد !`
@@ -117,6 +124,7 @@ export const Newscolumns = [
             );
           }
         } catch (error) {
+          console.error(error); 
           toast.error(
             `مشکلی در ${
               row.isActive ? "غیر فعال" : "فعال"
@@ -125,54 +133,41 @@ export const Newscolumns = [
         }
       };
       return (
-        <div className="column-action d-flex align-items-center">
-          <UncontrolledDropdown>
-            <DropdownToggle tag="span">
-              <MoreVertical size={17} className="cursor-pointer" />
-            </DropdownToggle>
-            <DropdownMenu end>
-              <DropdownItem
-                tag={Link}
+        <div className="column-action gap-2 d-flex align-items-center">
+          <div>
+            {row.isActive ? (
+              <XCircle
+                id="activeInactiveNews"
+                className="cursor-pointer activeNewsIcon"
+                onClick={handleActiveInactiveNews}
+              />
+            ) : (
+              <CheckCircle
+                id="activeInactiveNews"
+                className="cursor-pointer inActiveNewsIcon"
+                onClick={handleActiveInactiveNews}
+              />
+            )}
+            <Tooltip
+              placement="top"
+              isOpen={activeInactiveNewsTooltip}
+              target="activeInactiveNews"
+              toggle={() =>
+                setActiveInactiveNewsTooltip(!activeInactiveNewsTooltip)
+              }
+              innerClassName="table-tooltip"
+            >
+              {row.isActive ? "غیر فعال کردن" : "فعال کردن"}
+            </Tooltip>
+          </div>
+          <Link
                 to={`/EditNews/${row.id}`}
                 className="w-100"
               >
-                <Edit size={14} className="me-50" />
-                <span className="align-middle">ویرایش</span>
-              </DropdownItem>
-              <DropdownItem>
-                {row.isActive ? (
-                  <>
-                    <XCircle
-                      size={17}
-                      id="activeInactiveNews"
-                      className="cursor-pointer activeNewsIcon"
-                      onClick={handleActiveInactiveNews}
-                    />
-                    <span>غیر فعال کردن</span>{" "}
-                  </>
-                ) : (
-                  <>
-                    <CheckCircle
-                      size={17}
-                      id="activeInactiveNews"
-                      className="cursor-pointer inActiveNewsIcon"
-                      onClick={handleActiveInactiveNews}
-                    />
-                    <span>فعال کردن</span>
-                  </>
-                )}
-              </DropdownItem>
-              <DropdownItem
-                tag="a"
-                href="/"
-                className="w-100"
-                onClick={(e) => e.preventDefault()}
-              >
-                <Trash size={14} className="me-50" />
-                <span className="align-middle">حذف</span>
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
+                <Edit size={22} className="me-50" />
+              </Link>
+
+
         </div>
       );
     },
