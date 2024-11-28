@@ -44,6 +44,7 @@ const NewsCatList = lazy(() => import("../../pages/NewsCatList"))
 const UserDetail = lazy(() => import("../../pages/userDeatil"))
 const ManageAllComments = lazy(() => import("../../pages/AllComment"))
 const EditNews = lazy(() => import("../../pages/EditNews"))
+const ReportComments = lazy(() => import("../../pages/ReportComment"))
 
 // ** Merge Routes
 const Routes = [
@@ -123,6 +124,10 @@ const Routes = [
   {
     element : <EditNews/> ,
     path :"/EditNews/:id"
+  },
+  {
+    element: <ReportComments/>,
+    path: "/ReportComment"
   },
   {
     path: "/login",

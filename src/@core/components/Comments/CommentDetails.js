@@ -57,8 +57,8 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
   const handleSubmit = async () => {
     try {
       const commentData = {
-        commentId: comment.commentId,
-        courseId: comment.courseId,
+        commentId: comment.commentId || comment.CommentId,
+        courseId: comment.courseId  || comment.CommentId,
         title: commentTitle,
         describe: commentText,
       };
@@ -106,7 +106,7 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
       showLoaderOnConfirm: true,
       async preConfirm() {
         const DeleteCourseComment = await deleteCourseComment(
-          comment.commentId
+          comment.commentId  || comment.CommentId
         );
 
         if (DeleteCourseComment.success) {
@@ -123,9 +123,9 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
   const handleAcceptRejectComment = async () => {
     MySwal.fire({
       title: `آیا از ${
-        comment?.accept ? "لغو" : "تایید"
+        comment?.accept  || comment.Accept  ? "لغو" : "تایید"
       } کردن نظر مطمئن هستید؟`,
-      text: comment?.accept
+      text: comment?.accept  || comment.Accept 
         ? "در صورت لغو نظر، نظر برای کاربران قابل نمایش نخواهد بود ."
         : "در صورت تایید نظر، نظر برای کاربران قابل رویت خواهد بود.",
       icon: "warning",
@@ -138,25 +138,25 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
         autocapitalize: "off",
       },
       showCancelButton: true,
-      confirmButtonText: comment?.accept
+      confirmButtonText: comment?.accept  || comment.Accept 
         ? "بله، میخوام نظر را لغو کنم"
         : "بله، میخواهم نظر را تایید کنم",
       cancelButtonText: "انصراف",
       showLoaderOnConfirm: true,
       async preConfirm() {
-        const acceptRejectComment = comment?.accept
-          ? await rejectComment(comment.commentId)
-          : await acceptComment(comment?.commentId);
+        const acceptRejectComment = comment?.accept  || comment.Accept 
+          ? await rejectComment(comment.commentId || comment.CommentId)
+          : await acceptComment(comment?.commentId || comment.CommentId);
 
         if (acceptRejectComment.success) {
           toast.success(
-            `نظر با موفقیت ${comment.accept ? "لغو" : "تایید"} شد !`
+            `نظر با موفقیت ${comment.accept || comment.Accept ? "لغو" : "تایید"} شد !`
           );
 
           navigate("/comments");
         } else {
           toast.error(
-            `مشکلی در ${comment.accept ? "لغو" : "تایید"} نظر به وجود آمد !`
+            `مشکلی در ${comment.accept  || comment.Accept  ? "لغو" : "تایید"} نظر به وجود آمد !`
           );
         }
       },
@@ -170,14 +170,14 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
         <CardHeader className="email-detail-head">
           <div className="user-details d-flex justify-content-between align-items-center flex-wrap">
             <div className="mail-items">
-              <h5 className="mb-0">{obj.commentTitle}</h5>
+              <h5 className="mb-0">{obj.commentTitle || obj.CommentTitle}</h5>
               <UncontrolledDropdown className="email-info-dropup">
                 <DropdownToggle
                   className="font-small-3 text-muted cursor-pointer"
                   tag="span"
                   caret
                 >
-                  <span className="me-25">{obj.commentTitle}</span>
+                  <span className="me-25">{obj.commentTitle || obj.CommentTitle}</span>
                 </DropdownToggle>
               </UncontrolledDropdown>
             </div>
@@ -199,12 +199,12 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
                   className="d-flex align-items-center w-100"
                   onClick={handleAcceptRejectComment}
                 >
-                  {comment?.accept ? (
+                  {comment?.accept || comment?.Accept ? (
                     <XCircle className="me-50" size={14} />
                   ) : (
                     <CheckCircle className="me-50" size={14} />
                   )}
-                  {comment?.accept ? "غیر فعال کردن" : "فعال کردن"}
+                  {comment?.accept || comment?.Accept ? "غیر فعال کردن" : "فعال کردن"}
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -234,7 +234,7 @@ const CommentDetails = ({ comment, openComment, setOpenComment }) => {
               <span className="go-back me-1" onClick={handleGoBack}>
                 <ChevronLeft size={20} />
               </span>
-              <h4 className="email-subject mb-0">{comment.commentTitle}</h4>
+              <h4 className="email-subject mb-0">{comment.commentTitle || comment.CommentTitle}</h4>
             </div>
           </div>
           <PerfectScrollbar

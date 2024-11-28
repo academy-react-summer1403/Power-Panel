@@ -8,6 +8,7 @@ import {
   UserPlus,
   Code,
   MessageCircle,
+  MoreVertical,
 } from "react-feather";
 
 export default [
@@ -103,4 +104,17 @@ export default [
       }
     ],
   },
+  {
+    id: "More",
+    title: "موارد دیگر",
+    icon: <MoreVertical size={15} />,
+    children: [
+      {
+        id: "ReportComment",
+        title: "گزارش کامنت" ,
+        icon: <Circle size={15} />,
+        navLink: "/ReportComment",
+      }
+    ]
+  }
 ];
