@@ -83,7 +83,7 @@ export const CourseLevelColumns = [
         <div className="column-action d-flex align-items-center">
           <Link
             title="ویرایش کاربر"
-            to={`//${row.id}`}
+            to={`/EditCourseLevel/${row.id}`}
             className="w-100"
           >
             <Edit size={14} className="me-50" />
