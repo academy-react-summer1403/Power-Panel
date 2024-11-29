@@ -111,6 +111,18 @@ export default [
       },
     ],
   },
+  {id: "Building",
+    title: "مدیریت ساختمان ها",
+    icon : <Home />,
+    children: [
+            {
+              id: "ListOfBuilding",
+              title: "لیسا ساختمان ها",
+              icon : <circle size={15}/>,
+              navLink :"ListOfBuilding"
+            }
+    ]
+  },
   {
     id: "More",
     title: "موارد دیگر",

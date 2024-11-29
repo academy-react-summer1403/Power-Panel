@@ -1,6 +1,6 @@
 // ** Third Party Components
 import classnames from "classnames";
-import { UserCheck, BookOpen, Users, User, Book } from "react-feather";
+import { UserCheck, BookOpen, Users, User, Book, UserMinus } from "react-feather";
 
 // ** Custom Components
 import Avatar from '@components/avatar'
@@ -23,7 +23,7 @@ const StatsCard = ({ cols , dashboardData }) => {
       title: dashboardData?.deactiveUsers || 0,
       subtitle: "تعداد کاربران غیر فعال",
       color: "light-info",
-      icon: <Users size={24} />,
+      icon: <UserMinus size={24} />,
     },
     {
       title: dashboardData?.inCompeletUserCount || 0,
