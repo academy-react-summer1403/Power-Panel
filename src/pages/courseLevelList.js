@@ -42,7 +42,7 @@ const CustomHeader = ({ handleFilter, handlePerPage }) => {
               <option value="20">20</option>
             </Input>
           </div>
-          <Button tag={Link} to="/AddUser" color="primary">
+          <Button tag={Link} to="/CreateCourseLevel" color="primary">
             افزودن دوره
           </Button>
         </Col>
@@ -67,12 +67,13 @@ const CustomHeader = ({ handleFilter, handlePerPage }) => {
 
 const CourseLevelList = () => {
   // ** States
-  const [courseLevel, setCourseLevel] = useState();
+  const [courseLevel, setCourseLevel] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [sort, setSort] = useState("desc");
   const [sortColumn, setSortColumn] = useState("id");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [searchText, setSearchText] = useState();
+  const [searchText, setSearchText] = useState("");
 
   const textTimeOut = useTimeOut();
 
@@ -80,10 +81,10 @@ const CourseLevelList = () => {
     const fetchCourseLevel = async () => {
       try {
         const res = await GetAllCourseLevel();
-
         setCourseLevel(res);
+        setFilteredData(res); 
       } catch (error) {
-        console.log("ارور");
+        console.log("ارور در دریافت داده‌ها");
       }
     };
 
@@ -93,6 +94,11 @@ const CourseLevelList = () => {
   const handleFilter = (val) => {
     textTimeOut(() => {
       setSearchText(val);
+
+      const filtered = courseLevel.filter((item) =>
+        item.levelName.toLowerCase().includes(val.toLowerCase()) 
+      );
+      setFilteredData(filtered);
     }, 800);
   };
 
@@ -104,8 +110,29 @@ const CourseLevelList = () => {
     setCurrentPage(page.selected + 1);
   };
 
+  const handleSort = (column, sortDirection) => {
+    setSort(sortDirection);
+    setSortColumn(column.sortField);
+
+    const sortedData = [...filteredData].sort((a, b) => {
+      if (sortDirection === "asc") {
+        return a[column.sortField] > b[column.sortField] ? 1 : -1;
+      } else {
+        return a[column.sortField] < b[column.sortField] ? 1 : -1;
+      }
+    });
+
+    setFilteredData(sortedData);
+  };
+
+  const dataToRender = () => {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    return filteredData.slice(startIndex, endIndex);
+  };
+
   const CustomPagination = () => {
-    const count = Number((User.totalCount / rowsPerPage).toFixed(0));
+    const count = Math.ceil(filteredData.length / rowsPerPage);
 
     return (
       <ReactPaginate
@@ -129,19 +156,6 @@ const CourseLevelList = () => {
     );
   };
 
-  const dataToRender = () => {
-    if (courseLevel?.length > 0) {
-      return courseLevel;
-    } else if (User?.totalCount === 0) {
-      return [];
-    } else {
-      return courseLevel?.slice(0, rowsPerPage);
-    }
-  };
-  const handleSort = (column, sortDirection) => {
-    setSort(sortDirection);
-    setSortColumn(column.sortField);
-  };
 
   return (
     <div className="invoice-list-wrapper">
@@ -159,7 +173,7 @@ const CourseLevelList = () => {
             data={dataToRender()}
             sortIcon={<ChevronDown />}
             className="react-dataTable"
-            defaultSortField="invoiceId"
+            defaultSortField="id"
             paginationDefaultPage={currentPage}
             paginationComponent={CustomPagination}
             subHeaderComponent={
@@ -174,5 +188,6 @@ const CourseLevelList = () => {
     </div>
   );
 };
+
 
 export default CourseLevelList;

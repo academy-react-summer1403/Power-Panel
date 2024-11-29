@@ -48,6 +48,12 @@ export default [
         navLink: "/CourseLevelList",
       },
       {
+        id: "CreateCourseLevel",
+        title: "ساخت لول جدید",
+        icon: <Circle size={15} />,
+        navLink: "/CreateCourseLevel",
+      },
+      {
         id: "CourseCat",
         title: "لیست کتگوری ها",
         icon: <Circle size={15} />,

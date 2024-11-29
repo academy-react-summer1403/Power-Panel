@@ -7,7 +7,18 @@ export const GetAllCourseLevel = async () => {
         const res = await http.get("/CourseLevel/GetAllCourseLevel")
         return res
     } catch (error) {
-        toast.apply("Error", error)
+        toast.error("Error", error)
+        return null
+    }
+}
+
+
+export const CreateCourseLevelApi = async (date) => {
+    try {
+        const res = await http.post("/CourseLevel" , date)
+        return res
+    } catch (error) {
+        toast.error("Error", error)
         return null
     }
 }

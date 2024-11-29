@@ -142,6 +142,7 @@ const ReportComment = () => {
       minWidth: "150px",
     },
     {
+      minWidth: "400px",
       name: "عملیات",
       cell: (row) => {
           const handleOpenCommentDetails = (comment) => {

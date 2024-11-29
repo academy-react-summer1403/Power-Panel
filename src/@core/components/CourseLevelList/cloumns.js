@@ -6,10 +6,6 @@ import { DtaeConvert } from "../../../core/services/utils/date";
 // ** Custom Components
 import Avatar from "@components/avatar";
 
-
-// ** Reactstrap Imports
-import { Badge } from "reactstrap";
-
 // ** Third Party Components
 import {
   Eye,
@@ -91,9 +87,6 @@ export const CourseLevelColumns = [
             className="w-100"
           >
             <Edit size={14} className="me-50" />
-          </Link>
-          <Link to={`//${row.id}`} id={`pw-tooltip-${row.id}`}>
-            <Eye size={17} className="mx-1" />
           </Link>
         </div>
       );

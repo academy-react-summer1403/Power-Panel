@@ -47,6 +47,7 @@ const ManageAllComments = lazy(() => import("../../pages/AllComment"))
 const EditNews = lazy(() => import("../../pages/EditNews"))
 const ReportComments = lazy(() => import("../../pages/ReportComment"))
 const CourseLevelList = lazy(() => import("../../pages/courseLevelList"))
+const CreateCourseLevel = lazy(() => import("../../pages/createCourseLevel"))
 const UserOpinion = lazy(() => import("../../pages/userOpinion"))
 
 // ** Merge Routes
@@ -99,6 +100,10 @@ const Routes = [
   {
     path : "/CourseLevelList",
     element: <CourseLevelList/>
+  },
+  {
+    path : "/CreateCourseLevel",
+    element: <CreateCourseLevel/>
   },
   {
     path : "/CreateCourseCat",
