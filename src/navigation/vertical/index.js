@@ -117,9 +117,15 @@ export default [
     children: [
             {
               id: "ListOfBuilding",
-              title: "لیسا ساختمان ها",
-              icon : <circle size={15}/>,
-              navLink :"ListOfBuilding"
+              title: "لیسات ساختمان ها",
+              icon: <Circle size={15} />,
+              navLink :"/ListOfBuilding"
+            },
+            {
+              id: "CreateBuilding",
+              title: "اضافه کردن ساختمان",
+              icon: <Circle size={15} />,
+              navLink :"/CreateBuilding"
             }
     ]
   },

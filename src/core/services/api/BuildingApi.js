@@ -11,3 +11,14 @@ export const GetListOfBuildings = async () =>{
         return null
     }
 }
+
+
+export const CreateBuildings = async () =>{
+    try {
+        const res = await http.post("/Building")
+        return res.data
+    } catch (error) {
+        toast.error("Error post" , error)
+        return null
+    }
+}
