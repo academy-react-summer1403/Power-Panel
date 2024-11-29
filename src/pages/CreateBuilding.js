@@ -58,7 +58,6 @@ const CreateBuilding = () => {
       floor: parseInt(value.floor),
       latitude: value.latitude,
       longitude: value.longitude,
-      active: true,
     };
 
     try {

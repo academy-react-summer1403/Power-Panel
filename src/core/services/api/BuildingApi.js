@@ -13,9 +13,9 @@ export const GetListOfBuildings = async () =>{
 }
 
 
-export const CreateBuildings = async () =>{
+export const CreateBuildings = async (data) =>{
     try {
-        const res = await http.post("/Building")
+        const res = await http.post("/Building" , data)
         return res.data
     } catch (error) {
         toast.error("Error post" , error)
