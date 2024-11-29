@@ -17,6 +17,12 @@ const StatsCard = ({ cols , dashboardData }) => {
       title: dashboardData?.allUser || 0,
       subtitle: "تعداد کاربران",
       color: "light-info",
+      icon: <Users size={24} />
+    },
+    {
+      title: dashboardData?.deactiveUsers || 0,
+      subtitle: "تعداد کاربران غیر فعال",
+      color: "light-info",
       icon: <Users size={24} />,
     },
     {
@@ -31,6 +37,19 @@ const StatsCard = ({ cols , dashboardData }) => {
       color: "light-danger",
       icon: <Book size={24} />,
     },
+    {
+      title: Math.round(dashboardData?.reserveAcceptPercent || 0) || 0,
+      subtitle: "درصد رزرو های تایید شده",
+      color: "light-danger",
+      icon: <Book size={24} />,
+    },
+    {
+      title: Math.round(dashboardData?.reserveNotAcceptPercent || 0) || 0,
+      subtitle: "درصد رزرو های تایید نشده",
+      color: "light-danger",
+      icon: <Book size={24} />,
+    },
+    
   ]
 
   const renderData = () => {
@@ -41,8 +60,9 @@ const StatsCard = ({ cols , dashboardData }) => {
         <Col
           key={index}
           {...cols}
+          style={{width: "200px"}}
           className={classnames({
-            [`mb-2 mb-${margin}-0`]: index !== data.length - 1
+            [`mb-2 m-1 mb-${margin}-0`]: index !== data.length - 1
           })}
         >
           <div className='d-flex align-items-center'>

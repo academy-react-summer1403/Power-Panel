@@ -42,6 +42,12 @@ export default [
         navLink: "/CreateCourse",
       },
       {
+        id: "CourseLevel",
+        title: "لیست لول دوره ها",
+        icon: <Circle size={15} />,
+        navLink: "/CourseLevelList",
+      },
+      {
         id: "CourseCat",
         title: "لیست کتگوری ها",
         icon: <Circle size={15} />,
@@ -97,11 +103,6 @@ export default [
         icon: <Circle size={15} />,
         navLink: "/AllUserComment",
       },
-      {
-        id: "AllUserComment",
-        title: "کامنت های خودم",
-        icon: <Circle size={15} />,
-      }
     ],
   },
   {
@@ -114,6 +115,12 @@ export default [
         title: "گزارش کامنت" ,
         icon: <Circle size={15} />,
         navLink: "/ReportComment",
+      },
+      {
+        id: "UserOpinion",
+        title: "نظرات کاربران" ,
+        icon: <Circle size={15} />,
+        navLink: "/UserOpinion",
       }
     ]
   }

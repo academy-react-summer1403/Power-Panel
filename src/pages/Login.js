@@ -77,24 +77,20 @@ const Login = () => {
   };
 
   useEffect(() => {
-      const token = getItem("token");
-      const loginTime = getItem("loginTime");
-
-      if (token && loginTime) {
-          const currentTime = new Date();
-          const loginDate = new Date(loginTime);
-          const timeDiff = (currentTime - loginDate) / 1000 / 60 / 60;
-
-          if (timeDiff > 2) {
-              localStorage.clear(); 
-              navigate("/login"); 
-          } else {
-              navigate("/Dashboard");
-          }
-      } else {
-          localStorage.clear(); 
+    const currentTime = new Date().getTime();
+  
+    const lastClearTime = localStorage.getItem("lastClearTime");
+    if (lastClearTime) {
+      const hoursSinceLastClear = (currentTime - parseInt(lastClearTime)) / (1000 * 60 * 60);
+      if (hoursSinceLastClear >= 2) {
+        localStorage.clear();
       }
-  }, [navigate]);
+    } else {
+      localStorage.setItem("lastClearTime", currentTime.toString());
+    }
+    localStorage.setItem("lastClearTime", currentTime.toString());
+  
+  }, []);
   return (
     <div className="auth-wrapper auth-cover">
       <Row className="auth-inner m-0">
