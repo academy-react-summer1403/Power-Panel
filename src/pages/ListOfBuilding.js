@@ -134,7 +134,7 @@ const ReportComment = () => {
             tag={Link}
             color=""
             size="sm"
-            to=""
+            to={`/EditBuilding/${row.id}`}
           >
             <Edit  size={16} />
           </Button>
