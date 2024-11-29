@@ -31,6 +31,7 @@ const Register = lazy(() => import("../../pages/Register"));
 const ForgotPassword = lazy(() => import("../../pages/ForgotPassword"));
 const Error = lazy(() => import("../../pages/Error"));
 const AddUser = lazy(() => import("../../pages/AddUser"));
+const EditUser = lazy(() => import("../../pages/editUser"));
 const CoursePage = lazy(() => import("../../pages/CourseListPage"))
 const CreateCourse = lazy(() => import("../../pages/CreateCourse"))
 const EditCourse = lazy(() => import("../../pages/EditCourse"))
@@ -58,6 +59,10 @@ const Routes = [
   {
     path: "/Dashboard",
     element: <Home />,
+  },
+  {
+    path: "/EditUser/:id",
+    element: <EditUser/>,
   },
   {
     path: "/AddUser",

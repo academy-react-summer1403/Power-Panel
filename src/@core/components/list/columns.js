@@ -218,7 +218,7 @@ export const columns = [
           </div>
           <Link
             title="ویرایش کاربر"
-            to={`/apps/invoice/edit/${row.id}`}
+            to={`/EditUser/${row.id}`}
             className="w-100"
           >
             <Edit size={14} className="me-50" />
