@@ -9,11 +9,9 @@ import {
   Row,
 } from "reactstrap";
 import DataTable from "react-data-table-component";
-import { ChevronDown, CheckCircle, XCircle, Trash, Eye, Edit } from "react-feather";
+import { ChevronDown, CheckCircle, XCircle, Edit } from "react-feather";
+import { GetAllTerms } from "../core/services/api/TermApi";
 import { DtaeConvert } from "../core/services/utils/date";
-import axios from "axios";
-import CommentDetails from "../@core/components/Comments/CommentDetails";
-import { GetListOfBuildings } from "../core/services/api/BuildingApi";
 import { Link } from "react-router-dom";
 
 const CustomHeader = ({ handleFilter, handleToggle, active }) => {
@@ -27,7 +25,7 @@ const CustomHeader = ({ handleFilter, handleToggle, active }) => {
             className={`me-1 ${active ? "active-filter" : ""}`}
           >
             <CheckCircle size={16} className="me-1" />
-            ساختمان های تایید شده
+            فصل های تایید شده
           </Button>
           <Button
             color={!active ? "danger" : "light"}
@@ -35,7 +33,7 @@ const CustomHeader = ({ handleFilter, handleToggle, active }) => {
             className={`me-1 ${!active ? "active-filter" : ""}`}
           >
             <XCircle size={16} className="me-1" />
-            ساختمان های رد شده
+            فصل های رد شده
           </Button>
         </Col>
         <Col
@@ -47,7 +45,7 @@ const CustomHeader = ({ handleFilter, handleToggle, active }) => {
             className="ms-50 me-2 w-200"
             type="text"
             onChange={(e) => handleFilter(e.target.value)}
-            placeholder="جستجوی ساختمان"
+            placeholder="جستجوی فصل"
           />
         </Col>
       </Row>
@@ -55,30 +53,28 @@ const CustomHeader = ({ handleFilter, handleToggle, active }) => {
   );
 };
 
-const ListOfBuilding = () => {
-  const [Building, setBuilding] = useState([]);
-  const [filteredBuilding, setFilteredBuilding] = useState([]);
+const TermList = () => {
+  const [Term, setTerm] = useState([]);
+  const [filteredTerm, setFilteredTerm] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [active, setActive] = useState(true);
 
   useEffect(() => {
-    const getBuilding = async () => {
-      const data = await GetListOfBuildings();
+    const getTerm = async () => {
+      const data = await GetAllTerms();
       if (data) {
-        setBuilding(data);
+        setTerm(data);
       }
     };
-    getBuilding();
+    getTerm();
   }, []);
 
   useEffect(() => {
-    const filtered = Building
-      .filter((item) => item.active === active)
-      .filter((item) =>
-        item.buildingName.toLowerCase().includes(searchText.toLowerCase())
-      );
-      setFilteredBuilding(filtered);
-  }, [searchText, active, Building]);
+    const filtered = Term.filter((item) => item.expire !== active).filter(
+      (item) => item.termName.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredTerm(filtered);
+  }, [searchText, active, Term]);
 
   const handleFilter = (value) => {
     setSearchText(value);
@@ -88,69 +84,55 @@ const ListOfBuilding = () => {
     setActive(status);
   };
 
-
   const columns = [
     {
       name: "عنوان",
-      selector: (row) => row.buildingName,
+      selector: (row) => row.termName,
       sortable: true,
       minWidth: "250px",
     },
     {
-      name: "تعداد تبفه",
-      selector: (row) => row.floor,
-      minWidth: "150px",
-    },
-    {
-      name: "وضعیت تایید",
-      selector: (row) => (row.active ? "تایید شده" : "رد شده"),
+      name: "تاریخ شروع",
+      selector: (row) => DtaeConvert(row.startDate),
       sortable: true,
       minWidth: "150px",
     },
     {
-      name: "تاریخ",
-      selector: (row) => DtaeConvert(row.workDate),
+      name: "تاریخ پایان",
+      selector: (row) => DtaeConvert(row.endDate),
       sortable: true,
+      minWidth: "150px",
+    },
+    {
+      name: "نام بخش",
+      selector: (row) => row.departmentName,
       minWidth: "150px",
     },
     {
       minWidth: "400px",
       name: "عملیات",
       cell: (row) => {
-
-        return(
-                    <div className="d-flex justify-content-start">
-          {!row.active && (
-            <Button
-              color="success"
-              size="sm"
-              className="me-1"
-
-            >
-              تایید
+        return (
+          <div className="d-flex justify-content-start">
+            {row.expire && (
+              <Button color="success" size="sm" className="me-1">
+                تایید
+              </Button>
+            )}
+            <Button tag={Link} color="" size="sm" to={`/EditTerm/${row.id}`}>
+              <Edit size={16} />
             </Button>
-          )}
-          <Button
-            tag={Link}
-            color=""
-            size="sm"
-            to={`/EditBuilding/${row.id}`}
-          >
-            <Edit  size={16} />
-          </Button>
-        </div>
-        )
-
+          </div>
+        );
       },
     },
   ];
-
 
   return (
     <div>
       <Card>
         <CardHeader>
-          <CardText>لیست ساختمان ها</CardText>
+          <CardText>لیست فصل ها</CardText>
         </CardHeader>
       </Card>
       <div className="invoice-list-wrapper">
@@ -164,7 +146,7 @@ const ListOfBuilding = () => {
               subHeader={true}
               columns={columns}
               responsive
-              data={filteredBuilding}
+              data={filteredTerm}
               sortIcon={<ChevronDown />}
               className="react-dataTable"
               subHeaderComponent={
@@ -182,4 +164,4 @@ const ListOfBuilding = () => {
   );
 };
 
-export default ListOfBuilding;
+export default TermList;

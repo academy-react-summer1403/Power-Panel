@@ -42,6 +42,12 @@ export default [
         navLink: "/CreateCourse",
       },
       {
+        id: "TermList",
+        title: "لسیت فصل ها",
+        icon: <Circle size={15} />,
+        navLink: "/TermList",
+      },
+      {
         id: "CourseLevel",
         title: "لیست لول دوره ها",
         icon: <Circle size={15} />,
