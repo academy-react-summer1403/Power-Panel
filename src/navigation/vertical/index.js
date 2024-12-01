@@ -157,6 +157,12 @@ export default [
               icon: <Circle size={15} />,
               navLink :"/ClassRoomList"
             },
+            {
+              id: "CreateClassRoom",
+              title: "اضافه کردن کلاس",
+              icon: <Circle size={15} />,
+              navLink :"/CreateClassRoom"
+            },
     ]
   },
   {
