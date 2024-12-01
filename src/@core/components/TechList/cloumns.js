@@ -53,7 +53,7 @@ export const TechnologyColumns = [
         <div className="column-action d-flex align-items-center">
           <Link
             title="ویرایش کاربر"
-            to={`/EditClassRoom/${row.id}`}
+            to={`/EditTech/${row.id}`}
             className="w-100"
           >
             <Edit size={14} className="me-50" />

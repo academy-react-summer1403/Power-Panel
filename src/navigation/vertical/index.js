@@ -83,6 +83,12 @@ export default [
         icon: <Circle size={15} />,
         navLink: "/TechList",
       },
+      {
+        id: "CreateTech",
+        title: "اضافه کردن تکنولوژی",
+        icon: <Circle size={15} />,
+        navLink: "/CreateTech",
+      },
     ],
   },
   {
