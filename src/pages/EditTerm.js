@@ -16,9 +16,9 @@ import { selectThemeColors } from "../utility/Utils";
 
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "@styles/base/pages/app-invoice.scss";
-import { CreateTerms } from "../core/services/api/TermApi";
+import { EditTermApi, GetTermById } from "../core/services/api/TermApi";
 import { GetDepartmentApi } from "../core/services/api/DepartmentApi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 
 import { useEffect, useState } from "react";
@@ -26,6 +26,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 const CreateTerm = () => {
   const [Term, setTerm] = useState([]);
+  const [detail, setDetail] = useState(null);
+  const param = useParams();
 
   const Validation = yup.object().shape({
     termName: yup.string().required("این فیلد الزامی است"),
@@ -40,10 +42,15 @@ const CreateTerm = () => {
       .typeError("فرمت تاریخ معتبر نیست"),
   });
 
+  
+  const animatedComponents = makeAnimated();
+  const navigate = useNavigate();
+  
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       termName: "",
@@ -54,8 +61,6 @@ const CreateTerm = () => {
     resolver: yupResolver(Validation),
   });
 
-  const animatedComponents = makeAnimated();
-  const navigate = useNavigate();
 
   const OnSubmit = async (value) => {
     const formattedData = {
@@ -66,7 +71,7 @@ const CreateTerm = () => {
     };
 
     try {
-      const res = await CreateTerms(formattedData);
+      const res = await EditTermApi(formattedData);
       if (res.success === true) {
         navigate("/TermList");
       }
@@ -76,6 +81,23 @@ const CreateTerm = () => {
   };
 
   useEffect(() => {
+      const fetchTermById = async () => {
+        try {
+          const res = await GetTermById(param.id);
+          if (res) {
+            setDetail(res);
+            reset({
+              termName: res.termName,
+              departmentId: res.departmentId, 
+              startDate: res.startDate,
+              endDate: res.endDate,
+            });
+          }
+        } catch (error) {
+          console.error("مشکلی در دریافت جزئیات فصل به وجود آمد !");
+        }
+      };
+
     const fetchDep = async () => {
       try {
         const res = await GetDepartmentApi();
@@ -85,12 +107,17 @@ const CreateTerm = () => {
         }));
         setTerm(options);
       } catch (error) {
-        console.error("مشکلی در دریافت دوره ها به وجود آمد !");
+        console.error("مشکلی در دریافت دوره‌ها به وجود آمد !");
       }
     };
-
+  
+    fetchTermById();
     fetchDep();
-  }, []);
+  }, [param.id, reset]);
+
+  if (!detail) {
+    return <div>در حال بارگذاری...</div>; 
+  }
 
   return (
     <div className="container mt-4">
@@ -100,7 +127,7 @@ const CreateTerm = () => {
             className="border p-4 shadow-sm rounded"
             onSubmit={handleSubmit((values) => OnSubmit(values))}
           >
-            <h4 className="mb-4 text-center">ایجاد فصل جدید</h4>
+            <h4 className="mb-4 text-center">ادیت فصل جدید</h4>
             <FormGroup className="mb-3">
               <Label for="termName">عنوان فصل</Label>
               <Controller

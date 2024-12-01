@@ -31,9 +31,9 @@ export const CreateTerms = async (data) => {
   }
 };
 
-export const EditTerms = async (data) => {
+export const EditTermApi = async (data) => {
   try {
-    const res = await http.post("/Term", data);
+    const res = await http.put("/Term", data);
     return res;
   } catch (error) {
     toast.error("Error posting", error);
