@@ -124,7 +124,7 @@ export default [
     ],
   },
   {id: "Building",
-    title: "مدیریت ساختمان ها",
+    title: "مدیریت ساختمان ها و ...",
     icon : <Home />,
     children: [
             {
@@ -150,7 +150,13 @@ export default [
               title: "لیست بخش",
               icon: <Circle size={15} />,
               navLink :"/DepList"
-            }
+            },
+            {
+              id: "ClassRoomList",
+              title: "لیست کلاس ها",
+              icon: <Circle size={15} />,
+              navLink :"/ClassRoomList"
+            },
     ]
   },
   {
