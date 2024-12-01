@@ -57,6 +57,7 @@ const TermList = lazy(() => import("../../pages/TermList"))
 const CreateTerm = lazy(() => import("../../pages/CreateTerm"))
 const EditTerm = lazy(() => import("../../pages/EditTerm"))
 const DepList = lazy(() => import("../../pages/DepartmentList"))
+const CreateDep = lazy(() => import("../../pages/CreateDep"))
 
 // ** Merge Routes
 const Routes = [
@@ -96,6 +97,10 @@ const Routes = [
   {
     path : "/DepList",
     element: <DepList/>
+  },
+  {
+    path : "/CreateDep",
+    element: <CreateDep/>
   },
   {
     path : "/EditCourse/:id",

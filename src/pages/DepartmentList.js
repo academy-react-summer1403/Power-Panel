@@ -42,7 +42,7 @@ const CustomHeader = ({ handleFilter, handlePerPage }) => {
               <option value="20">20</option>
             </Input>
           </div>
-          <Button tag={Link} to="/CreateDepatment" color="primary">
+          <Button tag={Link} to="/CreateDep" color="primary">
             افزودن دوره
           </Button>
         </Col>

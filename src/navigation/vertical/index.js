@@ -140,6 +140,12 @@ export default [
               navLink :"/CreateBuilding"
             },
             {
+              id: "CreateDep",
+              title: "اضافه کردن بخش",
+              icon: <Circle size={15} />,
+              navLink :"/CreateDep"
+            },
+            {
               id: "DepList",
               title: "لیست بخش",
               icon: <Circle size={15} />,

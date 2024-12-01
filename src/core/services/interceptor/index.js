@@ -20,10 +20,6 @@ const onError = (err) => {
     window.location.pathname = "/login";
   }
 
-  if (err?.response?.status >= 400 && err.response.status < 500) {
-    alert("Client Error: ", err.response.status);
-  }
-
   Promise.reject(err);
 };
 
