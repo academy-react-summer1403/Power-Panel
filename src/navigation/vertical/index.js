@@ -42,6 +42,12 @@ export default [
         navLink: "/CreateCourse",
       },
       {
+        id: "CreateTerm",
+        title: "افزودن فصل",
+        icon: <Circle size={15} />,
+        navLink: "/CreateTerm",
+      },
+      {
         id: "TermList",
         title: "لسیت فصل ها",
         icon: <Circle size={15} />,
