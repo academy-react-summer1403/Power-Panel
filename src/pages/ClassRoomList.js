@@ -96,7 +96,7 @@ const ClassRoomList = () => {
       setSearchText(val);
 
       const filtered = ClassRoom.filter((item) =>
-        item.buildingName.toLowerCase().includes(val.toLowerCase()) 
+        item.classRoomName.toLowerCase().includes(val.toLowerCase()) 
       );
       setFilteredData(filtered);
     }, 800);

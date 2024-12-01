@@ -79,7 +79,7 @@ export const ClassRoomColumns = [
         <div className="column-action d-flex align-items-center">
           <Link
             title="ویرایش کاربر"
-            to={`/EditDep/${row.id}`}
+            to={`/EditClassRoom/${row.id}`}
             className="w-100"
           >
             <Edit size={14} className="me-50" />
