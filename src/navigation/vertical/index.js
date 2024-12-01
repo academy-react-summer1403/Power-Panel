@@ -77,6 +77,12 @@ export default [
         icon: <Circle size={15} />,
         navLink: "/CreateCourseCat",
       },
+      {
+        id: "TechList",
+        title: "لیست تکنولوژی",
+        icon: <Circle size={15} />,
+        navLink: "/TechList",
+      },
     ],
   },
   {
