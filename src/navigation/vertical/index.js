@@ -95,6 +95,12 @@ export default [
         icon: <Circle size={15} />,
         navLink: "/StatusList",
       },
+      {
+        id: "CreateStatus",
+        title: " اضافه کردن وعضیت",
+        icon: <Circle size={15} />,
+        navLink: "/CreateStatus",
+      },
     ],
   },
   {

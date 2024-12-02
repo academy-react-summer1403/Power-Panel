@@ -43,8 +43,8 @@ const CustomHeader = ({ handleFilter, handlePerPage }) => {
               <option value="20">20</option>
             </Input>
           </div>
-          <Button tag={Link} to="/CreateCourseLevel" color="primary">
-            افزودن دوره
+          <Button tag={Link} to="/CreateStatus" color="primary">
+            افزودن وضعیت
           </Button>
         </Col>
         <Col
@@ -57,7 +57,7 @@ const CustomHeader = ({ handleFilter, handlePerPage }) => {
               className="ms-50 me-2 w-200"
               type="text"
               onChange={(e) => handleFilter(e.target.value)}
-              placeholder="جستجوی دوره ها"
+              placeholder="جستجوی وضعیت ها"
             />
           </div>
         </Col>
