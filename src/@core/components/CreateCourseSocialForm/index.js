@@ -44,8 +44,8 @@ const CreateCourseSocialForm = ({ Data }) => {
   } = useForm({
     defaultValues: {
       courseId: Data ? Data.courseId : "",
-      groupName: "",
-      groupLink: "",
+      groupName: Data ? Data.groupName : "",
+      groupLink: Data ? Data.groupLink : "",
     },
     resolver: yupResolver(Validation),
   });

@@ -72,6 +72,7 @@ const EditDep = lazy(() => import("../../pages/EditDep"))
 const EditStatus = lazy(() => import("../../pages/EditStatus"))
 const EditTech = lazy(() => import("../../pages/EditTech"))
 const EditClassRoom = lazy(() => import("../../pages/EditClassRoom"))
+const EditCourseSocialGroup = lazy(() => import("../../pages/EditCourseSocialGroup"))
 const EditAssistanceWork = lazy(() => import("../../pages/EditAssistanceWork"))
 const EditCourseAsis = lazy(() => import("../../pages/EditCourseAsis"))
 const CourseSocialGroupList = lazy(() => import("../../pages/CourseSocialGroupList"))
@@ -127,6 +128,10 @@ const Routes = [
   {
     path : "/EditAssistanceWork/:id",
     element: <EditAssistanceWork/>
+  },
+  {
+    path : "/EditCourseSocialGroup/:id",
+    element: <EditCourseSocialGroup/>
   },
   {
     path : "/DepList",
