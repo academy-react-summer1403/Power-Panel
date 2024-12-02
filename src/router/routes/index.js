@@ -72,6 +72,7 @@ const EditDep = lazy(() => import("../../pages/EditDep"))
 const EditStatus = lazy(() => import("../../pages/EditStatus"))
 const EditTech = lazy(() => import("../../pages/EditTech"))
 const EditClassRoom = lazy(() => import("../../pages/EditClassRoom"))
+const EditAssistanceWork = lazy(() => import("../../pages/EditAssistanceWork"))
 const EditCourseAsis = lazy(() => import("../../pages/EditCourseAsis"))
 
 // ** Merge Routes
@@ -112,6 +113,10 @@ const Routes = [
   {
     path : "/CreateAssistanceWork",
     element: <CreateAssistanceWork/>
+  },
+  {
+    path : "/EditAssistanceWork/:id",
+    element: <EditAssistanceWork/>
   },
   {
     path : "/DepList",

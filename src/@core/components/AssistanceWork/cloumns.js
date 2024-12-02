@@ -92,7 +92,7 @@ export const AssistanceWorkColumns = [
         <div className="column-action d-flex align-items-center">
           <Link
             title="ویرایش کاربر"
-            to={`/EditCourseAsisWork/${row.id}`}
+            to={`/EditAssistanceWork/${row.workId}`}
             className="w-100"
           >
             <Edit size={14} className="me-50" />
