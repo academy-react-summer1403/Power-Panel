@@ -66,6 +66,7 @@ const CreateDep = lazy(() => import("../../pages/CreateDep"))
 const CreateStatus = lazy(() => import("../../pages/CreateStatus"))
 const CreateTech = lazy(() => import("../../pages/CreateTech"))
 const CreateCourseAsis = lazy(() => import("../../pages/CreateCourseAsis"))
+const CreateAssistanceWork = lazy(() => import("../../pages/CreateAssistanceWork"))
 const CreateClassRoom = lazy(() => import("../../pages/CreateClassRoom"))
 const EditDep = lazy(() => import("../../pages/EditDep"))
 const EditStatus = lazy(() => import("../../pages/EditStatus"))
@@ -107,6 +108,10 @@ const Routes = [
   {
     path : "/CreateCourse",
     element: <CreateCourse/>
+  },
+  {
+    path : "/CreateAssistanceWork",
+    element: <CreateAssistanceWork/>
   },
   {
     path : "/DepList",

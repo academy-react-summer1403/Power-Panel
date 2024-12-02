@@ -171,6 +171,12 @@ export default [
           icon: <Circle size={15}/>,
           navLink: "/AssistanceWorkList"
         },
+        {
+          id: "CreateAssistanceWork",
+          title: "افضودن کاره کمکی",
+          icon: <Circle size={15}/>,
+          navLink: "/CreateAssistanceWork"
+        },
     ]
   },
   {id: "Building",
