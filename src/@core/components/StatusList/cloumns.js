@@ -69,7 +69,7 @@ export const  StatusColumns = [
         <div className="column-action d-flex align-items-center">
           <Link
             title="ویرایش کاربر"
-            to={`/EditCourseLevel/${row.id}`}
+            to={`/EditStatus/${row.id}`}
             className="w-100"
           >
             <Edit size={14} className="me-50" />

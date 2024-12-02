@@ -65,6 +65,7 @@ const CreateStatus = lazy(() => import("../../pages/CreateStatus"))
 const CreateTech = lazy(() => import("../../pages/CreateTech"))
 const CreateClassRoom = lazy(() => import("../../pages/CreateClassRoom"))
 const EditDep = lazy(() => import("../../pages/EditDep"))
+const EditStatus = lazy(() => import("../../pages/EditStatus"))
 const EditTech = lazy(() => import("../../pages/EditTech"))
 const EditClassRoom = lazy(() => import("../../pages/EditClassRoom"))
 
@@ -138,6 +139,10 @@ const Routes = [
   {
     path : "/EditDep/:id",
     element: <EditDep/>
+  },
+  {
+    path : "/EditStatus/:id",
+    element: <EditStatus/>
   },
   {
     path : "/EditTech/:id",
