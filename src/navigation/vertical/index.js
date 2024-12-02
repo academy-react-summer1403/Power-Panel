@@ -9,6 +9,7 @@ import {
   Code,
   MessageCircle,
   MoreVertical,
+  ShoppingBag,
 } from "react-feather";
 
 export default [
@@ -158,6 +159,19 @@ export default [
         navLink: "/AllUserComment",
       },
     ],
+  },
+  {
+    id: "Work",
+    title: "مدریت کار ها",
+    icon: <ShoppingBag size={15} />,
+    children: [
+        {
+          id: "AssistanceWorkList",
+          title: "لیست کارهای کمکی",
+          icon: <Circle size={15}/>,
+          navLink: "/AssistanceWorkList"
+        },
+    ]
   },
   {id: "Building",
     title: "مدیریت ساختمان ها و ...",
