@@ -43,7 +43,7 @@ const CustomHeader = ({ handleFilter, handlePerPage }) => {
             </Input>
           </div>
           <Button tag={Link} to="/CreateAssistanceWork" color="primary">
-            افزودن دوره کمکی
+            افزودن کارهای کمکی
           </Button>
         </Col>
         <Col
@@ -56,7 +56,7 @@ const CustomHeader = ({ handleFilter, handlePerPage }) => {
               className="ms-50 me-2 w-200"
               type="text"
               onChange={(e) => handleFilter(e.target.value)}
-              placeholder="جستجوی دوره کمکی ها"
+              placeholder="جستجوی کارهای کمکی ها"
             />
           </div>
         </Col>

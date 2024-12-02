@@ -11,6 +11,11 @@ const onSuccess = (response) => {
   return response.data;
 };
 
+
+if (!getItem("token") && window.location.pathname !== "/login") {
+  window.location.pathname = "/login";
+}
+
 const onError = (err) => {
   console.log(err);
 
