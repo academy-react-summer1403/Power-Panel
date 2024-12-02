@@ -89,6 +89,12 @@ export default [
         icon: <Circle size={15} />,
         navLink: "/CreateTech",
       },
+      {
+        id: "StatusList",
+        title: " لیست وعضیت",
+        icon: <Circle size={15} />,
+        navLink: "/StatusList",
+      },
     ],
   },
   {
