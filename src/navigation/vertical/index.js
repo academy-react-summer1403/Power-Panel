@@ -114,6 +114,12 @@ export default [
         icon: <Circle size={15} />,
         navLink: "/CreateCourseAsis",
       },
+      {
+        id: "CourseSocialGroupList",
+        title: "گروه اجتمهاعی دوره",
+        icon: <Circle size={15} />,
+        navLink: "/CourseSocialGroupList",
+      },
     ],
   },
   {
