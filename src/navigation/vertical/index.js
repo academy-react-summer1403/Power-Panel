@@ -101,6 +101,12 @@ export default [
         icon: <Circle size={15} />,
         navLink: "/CreateStatus",
       },
+      {
+        id: "CourseAssistanceList",
+        title: " لیست کمک دوره",
+        icon: <Circle size={15} />,
+        navLink: "/CourseAssistanceList",
+      },
     ],
   },
   {
