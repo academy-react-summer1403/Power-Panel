@@ -64,11 +64,13 @@ const ClassRoomList = lazy(() => import("../../pages/ClassRoomList"))
 const CreateDep = lazy(() => import("../../pages/CreateDep"))
 const CreateStatus = lazy(() => import("../../pages/CreateStatus"))
 const CreateTech = lazy(() => import("../../pages/CreateTech"))
+const CreateCourseAsis = lazy(() => import("../../pages/CreateCourseAsis"))
 const CreateClassRoom = lazy(() => import("../../pages/CreateClassRoom"))
 const EditDep = lazy(() => import("../../pages/EditDep"))
 const EditStatus = lazy(() => import("../../pages/EditStatus"))
 const EditTech = lazy(() => import("../../pages/EditTech"))
 const EditClassRoom = lazy(() => import("../../pages/EditClassRoom"))
+const EditCourseAsis = lazy(() => import("../../pages/EditCourseAsis"))
 
 // ** Merge Routes
 const Routes = [
@@ -138,6 +140,10 @@ const Routes = [
     element: <CreateTech/>
   },
   {
+    path : "/CreateCourseAsis",
+    element: <CreateCourseAsis/>
+  },
+  {
     path : "/CreateClassRoom",
     element: <CreateClassRoom/>
   },
@@ -148,6 +154,10 @@ const Routes = [
   {
     path : "/EditStatus/:id",
     element: <EditStatus/>
+  },
+  {
+    path : "/EditCourseAsis/:id",
+    element: <EditCourseAsis/>
   },
   {
     path : "/EditTech/:id",

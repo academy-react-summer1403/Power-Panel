@@ -107,6 +107,12 @@ export default [
         icon: <Circle size={15} />,
         navLink: "/CourseAssistanceList",
       },
+      {
+        id: "CreateCourseAsis",
+        title: " اضافه کردن کمک دوره",
+        icon: <Circle size={15} />,
+        navLink: "/CreateCourseAsis",
+      },
     ],
   },
   {
