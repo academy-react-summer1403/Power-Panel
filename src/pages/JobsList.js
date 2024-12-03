@@ -12,10 +12,10 @@ import {
   Row,
 } from "reactstrap";
 
-import { UpdateJob, GetAllJob,  } from "../core/services/api/JobApi";
+import { UpdateJob, GetAllJob, DeleteJob,  } from "../core/services/api/JobApi";
 
 // ** Third Party Components
-import { CheckCircle, ChevronDown, Edit, User, XCircle } from "react-feather";
+import { CheckCircle, ChevronDown, Edit, Trash, User, XCircle } from "react-feather";
 import DataTable from "react-data-table-component";
 
 import { DtaeConvert } from "../core/services/utils/date";
@@ -106,7 +106,7 @@ const JobsList = () => {
       minWidth: "150px",
     },
     {
-      name: "عنوان کومپانی",
+      name: "عنوان کمپانی",
       selector: (row) => row.companyName,
       sortable: true,
       minWidth: "150px",
@@ -135,7 +135,7 @@ const JobsList = () => {
       minWidth: "150px",
     },
     {
-      minWidth: "400px",
+      minWidth: "250px",
       name: "عملیات",
       cell: (row) => {
 
@@ -163,6 +163,21 @@ const JobsList = () => {
             }
         };
 
+
+        const handelDelete = async (id) => {
+          try {
+            const res = await DeleteJob(id);
+        
+            if (res.status === 200) {
+                toast.success("عملیات موفق");
+            }
+
+            return res
+          } catch (error) {
+            console.log(error)
+          }
+        }
+
         return (
           <div className="d-flex justify-content-start">
             {!row.inWork ?
@@ -177,6 +192,9 @@ const JobsList = () => {
             <Button tag={Link} color="" size="sm" to={`/EditJob/${row.id}`}>
               <Edit size={16} />
             </Button>
+            <Button onClick={() => handelDelete(row.id)} color="" size="sm" >
+              <Trash size={16} />
+            </Button>
           </div>
         );
       },
@@ -187,7 +205,7 @@ const JobsList = () => {
     <div>
       <Card>
         <CardHeader>
-          <CardText>لیست ساختمان ها</CardText>
+          <CardText>لیست کار ها</CardText>
         </CardHeader>
       </Card>
       <div className="invoice-list-wrapper">

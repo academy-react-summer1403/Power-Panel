@@ -96,7 +96,7 @@ const CreateAssistanceWork = () => {
             className="border p-4 shadow-sm rounded"
             onSubmit={handleSubmit((values) => OnSubmit(values))}
           >
-            <h4 className="mb-4 text-center">ایجاد کلاس جدید</h4>
+            <h4 className="mb-4 text-center">ایجاد کار کمکی جدید</h4>
             <FormGroup className="mb-3">
               <Label for="worktitle">عنوان کار</Label>
               <Controller

@@ -9,9 +9,20 @@ export const GetAllJob = async () => {
   }
 };
 
-export const CreateJob = async (data) => {
+export const CreateJobApi = async (data) => {
   try {
     const res = await http.post("/SharePanel/CreateJobHistory" , data);
+    return res;
+  } catch (error) {
+    return null;
+  }
+};
+
+
+export const DeleteJob = async (id) => {
+    console.log(id)
+  try {
+    const res = await http.delete(`/SharePanel/DeleteJobHistory?HistoryId=${id}`);
     return res;
   } catch (error) {
     return null;

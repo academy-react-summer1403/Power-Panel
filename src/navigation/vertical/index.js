@@ -184,6 +184,12 @@ export default [
     icon: <ShoppingBag size={15} />,
     children: [
         {
+          id: "CreateJob",
+          title: "افزودن کار",
+          icon: <Circle size={15}/>,
+          navLink: "/CreateJob"
+        },
+        {
           id: "JobsList",
           title: "لیست کارها",
           icon: <Circle size={15}/>,
