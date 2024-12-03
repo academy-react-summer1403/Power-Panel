@@ -81,3 +81,63 @@ export const UpdateCourse = async (course) => {
     return false;
   }
 };
+
+export const getCourseReserveAPI = async () => {
+  try {
+    const res = await http.get("/CourseReserve");
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const DeleteCourseReserveAPI = async (id) => {
+  try {
+    const res = await http.delete("/CourseReserve", {
+      data: {
+        id,
+      },
+    });
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+
+export const SendReserveToCourseAPI = async (
+  courseId,
+  courseGroupId,
+  studentId
+) => {
+  try {
+    const res = await http.post("/CourseReserve/SendReserveToCourse", {
+      courseId,
+      courseGroupId,
+      studentId,
+    });
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+
+
+export const getCourseGroupAPI = async (teacherId, courseId) => {
+  try {
+    const res = await http.get("/CourseGroup/GetCourseGroup", {
+      params: {
+        teacherId,
+        courseId,
+      },
+    });
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};

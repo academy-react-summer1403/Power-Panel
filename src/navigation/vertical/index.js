@@ -43,6 +43,12 @@ export default [
         navLink: "/CreateCourse",
       },
       {
+        id: "CourseReserved",
+        title: "لیست دوره های رزرو شده",
+        icon: <Circle size={15} />,
+        navLink: "/CourseReservedList",
+      },
+      {
         id: "CreateTerm",
         title: "افزودن فصل",
         icon: <Circle size={15} />,
