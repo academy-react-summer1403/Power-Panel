@@ -64,6 +64,7 @@ const AssistanceWorkList = lazy(() => import("../../pages/AssistanceWorkList"))
 const CourseAssistanceList = lazy(() => import("../../pages/CourseAssistanceList"))
 const ClassRoomList = lazy(() => import("../../pages/ClassRoomList"))
 const CreateDep = lazy(() => import("../../pages/CreateDep"))
+const JobsList = lazy(() => import("../../pages/JobsList"))
 const CreateStatus = lazy(() => import("../../pages/CreateStatus"))
 const CreateTech = lazy(() => import("../../pages/CreateTech"))
 const CreateCourseAsis = lazy(() => import("../../pages/CreateCourseAsis"))
@@ -113,6 +114,10 @@ const Routes = [
   {
     path : "/CourseReservedList",
     element: <CourseReserved /> ,
+  },
+  {
+    path : "/JobsList",
+    element: <JobsList /> ,
   },
   {
     path : "/CreateCourse",
