@@ -75,7 +75,8 @@ const EditJob = () => {
       workStartDate: value.workStartDate,
       workEndDate: value.workEndDate,
       companyName: value.companyName,
-      inWork: value.inWork ? value.inWork.value.toString() : "false",
+      inWork: value.inWork ? value.inWork.value : false,
+      showInFirstPage: false,
       id: param.id,
       userId: getItem("userId")
 
