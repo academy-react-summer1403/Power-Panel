@@ -72,6 +72,7 @@ const CreateCourseAsis = lazy(() => import("../../pages/CreateCourseAsis"))
 const CreateAssistanceWork = lazy(() => import("../../pages/CreateAssistanceWork"))
 const CreateClassRoom = lazy(() => import("../../pages/CreateClassRoom"))
 const EditDep = lazy(() => import("../../pages/EditDep"))
+const EditJob = lazy(() => import("../../pages/EditJob"))
 const EditStatus = lazy(() => import("../../pages/EditStatus"))
 const EditTech = lazy(() => import("../../pages/EditTech"))
 const EditClassRoom = lazy(() => import("../../pages/EditClassRoom"))
@@ -123,6 +124,10 @@ const Routes = [
   {
     path : "/JobsList",
     element: <JobsList /> ,
+  },
+  {
+    path : "/EditJob/:id",
+    element: <EditJob /> ,
   },
   {
     path : "/CreateCourse",

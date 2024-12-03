@@ -16,9 +16,13 @@ import { selectThemeColors } from "../utility/Utils";
 
 import "@styles/react/libs/flatpickr/flatpickr.scss";
 import "@styles/base/pages/app-invoice.scss";
-import { CreateJobApi } from "../core/services/api/JobApi";
+import {
+  CreateJobApi,
+  GetJobById,
+  UpdateJob,
+} from "../core/services/api/JobApi";
 import { GetCourseAssistanceApi } from "../core/services/api/CourseAssistanceApi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 
 import { useEffect, useState } from "react";
@@ -26,7 +30,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { getItem } from "../core/services/common/storage.services";
 
-const CreateJob = () => {
+const EditJob = () => {
+  const [detail, setDetail] = useState(null);
+  const param = useParams();
+
   const Validation = yup.object().shape({
     jobTitle: yup.string().required("این فیلد الزامی است"),
     aboutJob: yup.string().required("این فیلد الزامی است"),
@@ -41,6 +48,7 @@ const CreateJob = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       jobTitle: "",
@@ -50,6 +58,7 @@ const CreateJob = () => {
       workStartDate: "",
       workEndDate: "",
       companyName: "",
+      inWork: false,
     },
     resolver: yupResolver(Validation),
   });
@@ -66,11 +75,14 @@ const CreateJob = () => {
       workStartDate: value.workStartDate,
       workEndDate: value.workEndDate,
       companyName: value.companyName,
-      inWork: false,
+      inWork: value.inWork ? value.inWork.value.toString() : "false",
+      id: param.id,
+      userId: getItem("userId")
+
     };
 
     try {
-      const res = await CreateJobApi(formattedData);
+      const res = await UpdateJob(formattedData);
       if (res.success === true) {
         navigate("/JobsList");
         toast.success("عملیات با موفقیت انجام شد!");
@@ -81,6 +93,40 @@ const CreateJob = () => {
       console.error("Error submitting form:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchJobById = async () => {
+      try {
+        const res = await GetJobById(param.id);
+
+        if (res) {
+          setDetail(res);
+
+          reset({
+            jobTitle: res.jobTitle || "",
+            aboutJob: res.aboutJob || "",
+            companyWebSite: res.companyWebSite || "https://",
+            companyLinkdin: res.companyLinkdin || "https://linkedin.com",
+            workStartDate: res.workStartDate || "",
+            workEndDate: res.workEndDate || "",
+            companyName: res.companyName || "",
+            inWork: res.inWork,
+          });
+        } else {
+          toast.error("مشکلی در دریافت اطلاعات کار وجود دارد.");
+        }
+      } catch (error) {
+        console.error("Error fetching job details:", error);
+        toast.error("مشکلی در دریافت اطلاعات شغل به وجود آمد!");
+      }
+    };
+
+    fetchJobById();
+  }, [param.id, reset]);
+
+  if (!detail) {
+    return <div>در حال بارگذاری...</div>;
+  }
 
   return (
     <div className="container mt-4">
@@ -182,7 +228,7 @@ const CreateJob = () => {
                     id="workStartDate"
                     placeholder="تاریخ شروع دوره"
                     value={field.value}
-                    onChange={field.onChange} 
+                    onChange={field.onChange}
                     invalid={errors.workStartDate && true}
                   />
                 )}
@@ -205,7 +251,7 @@ const CreateJob = () => {
                     id="workEndDate"
                     placeholder="تاریخ پایان دوره"
                     value={field.value}
-                    onChange={field.onChange} 
+                    onChange={field.onChange}
                     invalid={errors.workEndDate && true}
                   />
                 )}
@@ -233,6 +279,30 @@ const CreateJob = () => {
                 <FormFeedback>{errors.companyName.message}</FormFeedback>
               )}
             </FormGroup>
+            <FormGroup className="mb-3">
+              <Label for="inWork">وضعیت کار</Label>
+              <Controller
+                name="inWork"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    options={[
+                      { value: true, label: "فعال" },
+                      { value: false, label: "غیرفعال" },
+                    ]}
+                    components={animatedComponents}
+                    theme={selectThemeColors}
+                    isClearable
+                    placeholder="انتخاب وضعیت..."
+                    className={errors.inWork ? "is-invalid" : ""}
+                  />
+                )}
+              />
+              {errors.inWork && (
+                <FormFeedback>{errors.inWork.message}</FormFeedback>
+              )}
+            </FormGroup>
 
             <div className="d-flex justify-content-between">
               <Button type="submit" color="primary">
@@ -255,4 +325,4 @@ const CreateJob = () => {
   );
 };
 
-export default CreateJob;
+export default EditJob;

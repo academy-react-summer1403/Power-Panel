@@ -9,6 +9,16 @@ export const GetAllJob = async () => {
   }
 };
 
+
+export const GetJobById = async (id) => {
+  try {
+    const res = await http.get(`/SharePanel/GetJobHistory?HistoryId=${id}`);
+    return res.singleJob;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const CreateJobApi = async (data) => {
   try {
     const res = await http.post("/SharePanel/CreateJobHistory" , data);
