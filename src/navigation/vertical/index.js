@@ -43,6 +43,12 @@ export default [
         navLink: "/CreateCourse",
       },
       {
+        id: "PaymentList",
+        title: "لیست خرید",
+        icon: <Circle size={15} />,
+        navLink: "/PaymentList",
+      },
+      {
         id: "CourseReserved",
         title: "لیست دوره های رزرو شده",
         icon: <Circle size={15} />,

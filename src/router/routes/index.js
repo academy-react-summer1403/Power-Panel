@@ -65,6 +65,7 @@ const CourseAssistanceList = lazy(() => import("../../pages/CourseAssistanceList
 const ClassRoomList = lazy(() => import("../../pages/ClassRoomList"))
 const CreateDep = lazy(() => import("../../pages/CreateDep"))
 const JobsList = lazy(() => import("../../pages/JobsList"))
+const PaymentList = lazy(() => import("../../pages/PaymentList"))
 const CreateJob = lazy(() => import("../../pages/CreateJob"))
 const CreateStatus = lazy(() => import("../../pages/CreateStatus"))
 const CreateTech = lazy(() => import("../../pages/CreateTech"))
@@ -124,6 +125,10 @@ const Routes = [
   {
     path : "/JobsList",
     element: <JobsList /> ,
+  },
+  {
+    path : "/PaymentList",
+    element: <PaymentList/>
   },
   {
     path : "/EditJob/:id",
