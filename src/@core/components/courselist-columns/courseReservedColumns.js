@@ -50,6 +50,7 @@ export const CourseReservedColumns = (isUserDetailsPage) => [
                 : course?.imageAddress
             }
             className="student-course-reserve-picture"
+            style={{ width: "30px", height: "30px", borderRadius: "35px" }}
           />
           <div className="text-truncate ms-1">
             <span

@@ -31,7 +31,7 @@ const statusColors = {
 
 const MySwal = withReactContent(Swal);
 
-const UserInfoCard = ({ user }) => {
+const UserInfoCard = ({ user , userSkill}) => {
 
   // ** Hooks
   const { id } = useParams();
@@ -197,6 +197,20 @@ const UserInfoCard = ({ user }) => {
                         {renderRoleName(role.roleName)}
                       </Badge>
                     ))}
+                  </div>
+                </li>
+                <li className="mb-75 d-flex">
+                  <span className="fw-bolder me-25">مهارت:</span>
+                  <div className="d-flex flex-wrap user-details-roles-wrapper">
+                    {userSkill? userSkill.map((role) => (
+                      <Badge
+                        key={role.id}
+                        color="light-secondary"
+                        className="text-capitalize"
+                      >
+                        {renderRoleName(role.roleName)}
+                      </Badge>
+                    )): "مهرتی برای این کاربر وجود ندارد"}
                   </div>
                 </li>
                 <li className="mb-75">
