@@ -37,6 +37,9 @@ const CustomHeader = ({ handleFilter, handleToggle, active }) => {
             <XCircle size={16} className="me-1" />
             ساختمان های رد شده
           </Button>
+          <Button tag={Link} to="/CreateBuilding" color="primary">
+            افزودن ساختمان
+          </Button>
         </Col>
         <Col
           lg="6"

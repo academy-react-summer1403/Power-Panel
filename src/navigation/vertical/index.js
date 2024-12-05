@@ -10,6 +10,7 @@ import {
   MessageCircle,
   MoreVertical,
   ShoppingBag,
+  Clipboard,
 } from "react-feather";
 
 export default [
@@ -189,73 +190,80 @@ export default [
     title: "مدریت کار ها",
     icon: <ShoppingBag size={15} />,
     children: [
-        {
-          id: "CreateJob",
-          title: "افزودن کار",
-          icon: <Circle size={15}/>,
-          navLink: "/CreateJob"
-        },
-        {
-          id: "JobsList",
-          title: "لیست کارها",
-          icon: <Circle size={15}/>,
-          navLink: "/JobsList"
-        },
-        {
-          id: "AssistanceWorkList",
-          title: "لیست کارهای کمکی",
-          icon: <Circle size={15}/>,
-          navLink: "/AssistanceWorkList"
-        },
-        {
-          id: "CreateAssistanceWork",
-          title: "افضودن کاره کمکی",
-          icon: <Circle size={15}/>,
-          navLink: "/CreateAssistanceWork"
-        },
-    ]
+      {
+        id: "CreateJob",
+        title: "افزودن کار",
+        icon: <Circle size={15} />,
+        navLink: "/CreateJob",
+      },
+      {
+        id: "JobsList",
+        title: "لیست کارها",
+        icon: <Circle size={15} />,
+        navLink: "/JobsList",
+      },
+      {
+        id: "AssistanceWorkList",
+        title: "لیست کارهای کمکی",
+        icon: <Circle size={15} />,
+        navLink: "/AssistanceWorkList",
+      },
+      {
+        id: "CreateAssistanceWork",
+        title: "افضودن کاره کمکی",
+        icon: <Circle size={15} />,
+        navLink: "/CreateAssistanceWork",
+      },
+    ],
   },
-  {id: "Building",
+  {
+    id: "Building",
     title: "مدیریت ساختمان ها و ...",
-    icon : <Home />,
+    icon: <Home />,
     children: [
-            {
-              id: "ListOfBuilding",
-              title: "لیسات ساختمان ها",
-              icon: <Circle size={15} />,
-              navLink :"/ListOfBuilding"
-            },
-            {
-              id: "CreateBuilding",
-              title: "اضافه کردن ساختمان",
-              icon: <Circle size={15} />,
-              navLink :"/CreateBuilding"
-            },
-            {
-              id: "CreateDep",
-              title: "اضافه کردن بخش",
-              icon: <Circle size={15} />,
-              navLink :"/CreateDep"
-            },
-            {
-              id: "DepList",
-              title: "لیست بخش",
-              icon: <Circle size={15} />,
-              navLink :"/DepList"
-            },
-            {
-              id: "ClassRoomList",
-              title: "لیست کلاس ها",
-              icon: <Circle size={15} />,
-              navLink :"/ClassRoomList"
-            },
-            {
-              id: "CreateClassRoom",
-              title: "اضافه کردن کلاس",
-              icon: <Circle size={15} />,
-              navLink :"/CreateClassRoom"
-            },
-    ]
+      {
+        id: "ListOfBuilding",
+        title: "لیسات ساختمان ها",
+        icon: <Circle size={15} />,
+        navLink: "/ListOfBuilding",
+      },
+      {
+        id: "CreateBuilding",
+        title: "اضافه کردن ساختمان",
+        icon: <Circle size={15} />,
+        navLink: "/CreateBuilding",
+      },
+      {
+        id: "CreateDep",
+        title: "اضافه کردن بخش",
+        icon: <Circle size={15} />,
+        navLink: "/CreateDep",
+      },
+      {
+        id: "DepList",
+        title: "لیست بخش",
+        icon: <Circle size={15} />,
+        navLink: "/DepList",
+      },
+      {
+        id: "ClassRoomList",
+        title: "لیست کلاس ها",
+        icon: <Circle size={15} />,
+        navLink: "/ClassRoomList",
+      },
+      {
+        id: "CreateClassRoom",
+        title: "اضافه کردن کلاس",
+        icon: <Circle size={15} />,
+        navLink: "/CreateClassRoom",
+      },
+    ],
+  },
+  {
+    id: "SchedualList",
+    title: "بازه زمانی",
+    icon: <Clipboard size={15} />,
+    navLink: "/SchedualList",
   },
   {
     id: "More",
@@ -264,16 +272,16 @@ export default [
     children: [
       {
         id: "ReportComment",
-        title: "گزارش کامنت" ,
+        title: "گزارش کامنت",
         icon: <Circle size={15} />,
         navLink: "/ReportComment",
       },
       {
         id: "UserOpinion",
-        title: "نظرات کاربران" ,
+        title: "نظرات کاربران",
         icon: <Circle size={15} />,
         navLink: "/UserOpinion",
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];

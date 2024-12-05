@@ -63,6 +63,8 @@ const CourseReserved = lazy(() => import("../../pages/CourseReserved"))
 const AssistanceWorkList = lazy(() => import("../../pages/AssistanceWorkList"))
 const CourseAssistanceList = lazy(() => import("../../pages/CourseAssistanceList"))
 const ClassRoomList = lazy(() => import("../../pages/ClassRoomList"))
+const SchedualList = lazy(() => import("../../pages/SchedualList"))
+const CreateSchedual = lazy(() => import("../../pages/CreateSchedual"))
 const CreateDep = lazy(() => import("../../pages/CreateDep"))
 const JobsList = lazy(() => import("../../pages/JobsList"))
 const PaymentList = lazy(() => import("../../pages/PaymentList"))
@@ -125,6 +127,10 @@ const Routes = [
   {
     path : "/JobsList",
     element: <JobsList /> ,
+  },
+  {
+    path : "/SchedualList",
+    element: <SchedualList /> ,
   },
   {
     path : "/PaymentList",

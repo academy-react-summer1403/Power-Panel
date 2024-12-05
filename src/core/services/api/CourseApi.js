@@ -58,6 +58,16 @@ export const GetGroupsOfCourse = async () => {
   }
 };
 
+export const GetCourseById = async (id) => {
+  try {
+    const res = await http.get(`Course/${id}`)
+    return res
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
 export const GetEditCourse = async (courseId) => {
   try {
     const res = await http.get("/Course/GetEditCourse", {
@@ -106,7 +116,6 @@ export const DeleteCourseReserveAPI = async (id) => {
   }
 };
 
-
 export const SendReserveToCourseAPI = async (
   courseId,
   courseGroupId,
@@ -125,8 +134,6 @@ export const SendReserveToCourseAPI = async (
   }
 };
 
-
-
 export const getCourseGroupAPI = async (teacherId, courseId) => {
   try {
     const res = await http.get("/CourseGroup/GetCourseGroup", {
@@ -136,6 +143,15 @@ export const getCourseGroupAPI = async (teacherId, courseId) => {
       },
     });
 
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const getCourseGroupId = async (groupId) => {
+  try {
+    const res = await axiosInstance.get(`/CourseGroup/Details?Id=${groupId}`);
     return res;
   } catch (error) {
     return false;
