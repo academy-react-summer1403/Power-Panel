@@ -95,3 +95,13 @@ export const activeNews = async (data) => {
     return false;
   }
 };
+
+export const GetNewsFilesById = async (id) => {
+  try {
+    const response = await http.put(`/News/GetNewsFileList?NewsId=${id}`);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};

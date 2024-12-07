@@ -123,6 +123,7 @@ const NewsList = () => {
     fetchNews();
   }, []);
 
+
   useEffect(() => {
     const fetchNews = async () => {
       try {
