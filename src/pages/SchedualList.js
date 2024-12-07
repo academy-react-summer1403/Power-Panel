@@ -52,10 +52,8 @@ const Schedual = () => {
                 <option value="20">20</option>
               </Input>
             </div>
-            <Button tag={Link} to="/CreateSchedual" color="primary">
-            <CreateSchedual title={<Plus />} />
-            افزودن بازه رمانی
-          </Button>
+            <CreateSchedual title={"افزودن بازه رمانی"} />
+            
           </Col>
           <Col
             lg="6"
@@ -202,7 +200,7 @@ const Schedual = () => {
           return (
             <div className="column-action d-flex align-items-center gap-1">
               <div title="ویرایش"  className="w-100">
-              <CreateSchedual title='ویرایش بازه زمانی' schedual={getSchdualDataid} />
+              <CreateSchedual schedual={Schedual} title='ویرایش بازه زمانی'  />
                 <Edit size={14} className="me-50" />
               </div>
             </div>
