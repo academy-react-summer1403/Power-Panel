@@ -119,7 +119,6 @@ export const columns = [
     sortable: true,
     minWidth: "170px",
     sortField: "total",
-    // selector: row => row.total,
     cell: (row) => {
       const phoneNumber = row.client
         ? row.client.phoneNumber
@@ -130,6 +129,7 @@ export const columns = [
   {
     minWidth: "130px",
     name: "تاریخ تولد",
+    sortable: true,
     cell: (row) => {
       const InsertDate = row.client
         ? row.client.InsertDate
