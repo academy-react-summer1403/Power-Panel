@@ -60,7 +60,7 @@ export const GetGroupsOfCourse = async () => {
 
 export const GetCourseById = async (id) => {
   try {
-    const res = await http.get(`Course/${id}`);
+    const res = await http.get(`/Course/${id}`);
     return res;
   } catch (error) {
     console.log(error);

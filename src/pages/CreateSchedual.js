@@ -22,7 +22,10 @@ import { DebounceInput } from "react-debounce-input";
 import classnames from "classnames";
 import { FormSelect } from "react-bootstrap";
 import { getCourseListApi } from "../core/services/api/GetListOfCourse";
-import { GetCourseGroupAPI, GetCourseGroupId } from "../core/services/api/CourseApi";
+import {
+  GetCourseGroupAPI,
+  GetCourseGroupId,
+} from "../core/services/api/CourseApi";
 import { GetCourseById } from "../core/services/api/CourseApi";
 import DatePicker from "react-multi-date-picker";
 import { Calendar } from "react-multi-date-picker";
@@ -49,7 +52,7 @@ const CreateSchedual = ({ schedual, title }) => {
   const [courseWithGroup, setCourseWithGroup] = useState(null);
   const [courseDetail, setCourseDetail] = useState(null);
   const [group, setGroup] = useState([]);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(3000);
   const [categoryIdData, setCategoryIdData] = useState([]);
   const [SelectId, setSelectId] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
@@ -70,11 +73,8 @@ const CreateSchedual = ({ schedual, title }) => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await getCourseListApi(
-          pageNumber,
-          rowsPerPage,
-        );
-        setCourse(response.courseDtos || []);
+        const response = await getCourseListApi(pageNumber, rowsPerPage);
+        setCourse(response.courseFilterDtos);
       } catch (error) {
         console.error("Error fetching courses:", error);
       }
@@ -98,20 +98,20 @@ const CreateSchedual = ({ schedual, title }) => {
   }, [schedual]);
 
   useEffect(() => {
-    if (courseWithGroup) {
-      const fetchCourseDetail = async () => {
-        try {
-          const response = await GetCourseById(
-            courseWithGroup?.courseGroupDto?.courseId
-          );
-          setCourseDetail(response);
-        } catch (error) {
-          console.error("Error fetching course detail:", error);
+    const fetchCourseDetail = async () => {
+      try {
+        if (course.length) {
+          course.map(async (item) => {
+            const response = await GetCourseById(item.courseId);
+            setCourseDetail(response);
+          });
         }
-      };
-      fetchCourseDetail();
-    }
-  }, [courseWithGroup]);
+      } catch (error) {
+        console.error("Error fetching course detail:", error);
+      }
+    };
+    fetchCourseDetail();
+  }, [course]);
 
   useEffect(() => {
     if (courseDetail) {
@@ -122,11 +122,12 @@ const CreateSchedual = ({ schedual, title }) => {
   useEffect(() => {
     const fetchGroup = async () => {
       try {
-        const response = await GetCourseGroupAPI(
-          teacherId,
-          courseWithGroup?.courseGroupDto?.courseId
-        );
-        setGroup(response || []);
+        if (course.length) {
+          course.map(async (item) => {
+            const response = await GetCourseGroupAPI(teacherId, item.courseId);
+            setGroup(response);
+          });
+        }
       } catch (error) {
         console.error("Error fetching group:", error);
       }
@@ -162,29 +163,54 @@ const CreateSchedual = ({ schedual, title }) => {
   };
 
   return (
-    <div className="relative inline-block" onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}>
+    <div
+      className="relative inline-block"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
       {showTooltip && (
         <div className="absolute bottom-full mb-2 w-max bg-gray-800 text-white text-sm rounded px-2 py-1">
           افزودن بازه زمانی
         </div>
       )}
-      <button onClick={() => setShow(true)} className="cursor-pointer px-3 py-1 border-none bg-transparent text-blue-500" style={{ border: "none" }}>
+      <button
+        onClick={() => setShow(true)}
+        className="cursor-pointer px-3 py-1 border-none bg-transparent text-blue-500"
+        style={{ border: "none" }}
+      >
         {title}
       </button>
-      <Modal isOpen={show} toggle={() => setShow(!show)} className="modal-dialog-centered modal-lg" backdrop="static" keyboard={false} style={{ width: "500px" }}>
+      <Modal
+        isOpen={show}
+        toggle={() => setShow(!show)}
+        className="modal-dialog-centered modal-lg"
+        backdrop="static"
+        keyboard={false}
+        style={{ width: "500px" }}
+      >
         <ModalHeader className="bg-transparent" toggle={() => setShow(false)}>
           مدیریت دسته بندی
         </ModalHeader>
         <ModalBody className="px-sm-5 mx-50 pb-5">
           <Nav tabs>
             <NavItem>
-              <NavLink className={classnames({ active: activeTab === "1" })} onClick={() => setActiveTab("1")} style={{ flex: activeTab === "1" ? "2" : "1" }}>
-                {schedual ? "ویرایش بازه زمانی " : "افزودن  بازه زمانی اتوماتیک"}
+              <NavLink
+                className={classnames({ active: activeTab === "1" })}
+                onClick={() => setActiveTab("1")}
+                style={{ flex: activeTab === "1" ? "2" : "1" }}
+              >
+                {schedual
+                  ? "ویرایش بازه زمانی "
+                  : "افزودن  بازه زمانی اتوماتیک"}
               </NavLink>
             </NavItem>
             {schedual == null ? (
               <NavItem>
-                <NavLink className={classnames({ active: activeTab === "2" })} onClick={() => setActiveTab("2")} style={{ flex: activeTab === "2" ? "2" : "1" }}>
+                <NavLink
+                  className={classnames({ active: activeTab === "2" })}
+                  onClick={() => setActiveTab("2")}
+                  style={{ flex: activeTab === "2" ? "2" : "1" }}
+                >
                   افزودن بازه زمانی دستی
                 </NavLink>
               </NavItem>
@@ -220,16 +246,17 @@ const CreateSchedual = ({ schedual, title }) => {
               >
                 {({ handleSubmit, setFieldValue, values, errors, touched }) => (
                   <Form onSubmit={handleSubmit}>
-
                     <FormGroup>
                       <Label for="CourseName">نام دوره </Label>
                       <FormSelect
                         value={values.CourseName}
-                        onChange={(e) => setFieldValue("CourseName", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("CourseName", e.target.value)
+                        }
                       >
-                        {courseWithGroup?.map((item) => (
+                        {course?.map((item) => (
                           <option key={item?.id} value={item?.id}>
-                            {item?.courseName}
+                            {item?.title}
                           </option>
                         ))}
                       </FormSelect>
@@ -241,9 +268,11 @@ const CreateSchedual = ({ schedual, title }) => {
                       <Label for="courseGroupId">گروه آموزشی</Label>
                       <FormSelect
                         value={values.courseGroupId}
-                        onChange={(e) => setFieldValue("courseGroupId", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("courseGroupId", e.target.value)
+                        }
                       >
-                        {course?.map((item) => (
+                        {group?.map((item) => (
                           <option key={item?.id} value={item?.id}>
                             {item?.courseName}
                           </option>
@@ -259,7 +288,9 @@ const CreateSchedual = ({ schedual, title }) => {
                         type="number"
                         name="startTime"
                         value={values.startTime}
-                        onChange={(e) => setFieldValue("startTime", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("startTime", e.target.value)
+                        }
                       />
                       {touched.startTime && errors.startTime && (
                         <div className="error">{errors.startTime}</div>
@@ -271,7 +302,9 @@ const CreateSchedual = ({ schedual, title }) => {
                         type="number"
                         name="endTime"
                         value={values.endTime}
-                        onChange={(e) => setFieldValue("endTime", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("endTime", e.target.value)
+                        }
                       />
                       {touched.endTime && errors.endTime && (
                         <div className="error">{errors.endTime}</div>
@@ -283,7 +316,9 @@ const CreateSchedual = ({ schedual, title }) => {
                         type="number"
                         name="weekNumber"
                         value={values.weekNumber}
-                        onChange={(e) => setFieldValue("weekNumber", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("weekNumber", e.target.value)
+                        }
                       />
                       {touched.weekNumber && errors.weekNumber && (
                         <div className="error">{errors.weekNumber}</div>
@@ -295,14 +330,18 @@ const CreateSchedual = ({ schedual, title }) => {
                         type="number"
                         name="rowEffect"
                         value={values.rowEffect}
-                        onChange={(e) => setFieldValue("rowEffect", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("rowEffect", e.target.value)
+                        }
                       />
                       {touched.rowEffect && errors.rowEffect && (
                         <div className="error">{errors.rowEffect}</div>
                       )}
                     </FormGroup>
                     <Button color="primary" type="submit">
-                      {schedual ? "ویرایش بازه زمانی" : "افزودن بازه زمانی اتوماتیک"}
+                      {schedual
+                        ? "ویرایش بازه زمانی"
+                        : "افزودن بازه زمانی اتوماتیک"}
                     </Button>
                   </Form>
                 )}
@@ -337,7 +376,8 @@ const CreateSchedual = ({ schedual, title }) => {
                           borderRadius: "4px",
                           outline: "none",
                           width: "100%",
-                          transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+                          transition:
+                            "border-color 0.3s ease, box-shadow 0.3s ease",
                         }}
                       />
                     </FormGroup>
@@ -345,7 +385,9 @@ const CreateSchedual = ({ schedual, title }) => {
                       <Label for="courseGroupId">گروه آموزشی</Label>
                       <FormSelect
                         value={values.courseGroupId}
-                        onChange={(e) => setFieldValue("courseGroupId", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("courseGroupId", e.target.value)
+                        }
                       >
                         {courseWithGroup?.map((item) => (
                           <option key={item?.id} value={item?.id}>
@@ -363,7 +405,9 @@ const CreateSchedual = ({ schedual, title }) => {
                         type="number"
                         name="startTime"
                         value={values.startTime}
-                        onChange={(e) => setFieldValue("startTime", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("startTime", e.target.value)
+                        }
                       />
                       {touched.startTime && errors.startTime && (
                         <div className="error">{errors.startTime}</div>
@@ -375,7 +419,9 @@ const CreateSchedual = ({ schedual, title }) => {
                         type="number"
                         name="endTime"
                         value={values.endTime}
-                        onChange={(e) => setFieldValue("endTime", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("endTime", e.target.value)
+                        }
                       />
                       {touched.endTime && errors.endTime && (
                         <div className="error">{errors.endTime}</div>
@@ -387,7 +433,9 @@ const CreateSchedual = ({ schedual, title }) => {
                         type="number"
                         name="weekNumber"
                         value={values.weekNumber}
-                        onChange={(e) => setFieldValue("weekNumber", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("weekNumber", e.target.value)
+                        }
                       />
                       {touched.weekNumber && errors.weekNumber && (
                         <div className="error">{errors.weekNumber}</div>
@@ -399,7 +447,9 @@ const CreateSchedual = ({ schedual, title }) => {
                         type="number"
                         name="rowEffect"
                         value={values.rowEffect}
-                        onChange={(e) => setFieldValue("rowEffect", e.target.value)}
+                        onChange={(e) =>
+                          setFieldValue("rowEffect", e.target.value)
+                        }
                       />
                       {touched.rowEffect && errors.rowEffect && (
                         <div className="error">{errors.rowEffect}</div>
