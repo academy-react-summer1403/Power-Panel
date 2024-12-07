@@ -199,10 +199,8 @@ const Schedual = () => {
         cell: (row) => {
           return (
             <div className="column-action d-flex align-items-center gap-1">
-              <div title="ویرایش"  className="w-100">
-              <CreateSchedual schedual={Schedual} title='ویرایش بازه زمانی'  />
-                <Edit size={14} className="me-50" />
-              </div>
+              <CreateSchedual schedual={Schedual} title={<Edit size={14} className="me-50" />}  />
+                
             </div>
           );
         },

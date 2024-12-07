@@ -168,11 +168,6 @@ const CreateSchedual = ({ schedual, title }) => {
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
-      {showTooltip && (
-        <div className="absolute bottom-full mb-2 w-max bg-gray-800 text-white text-sm rounded px-2 py-1">
-          افزودن بازه زمانی
-        </div>
-      )}
       <button
         onClick={() => setShow(true)}
         className="cursor-pointer px-3 py-1 border-none bg-transparent text-blue-500"
