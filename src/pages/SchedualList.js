@@ -3,16 +3,14 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { DtaeConvert } from "../core/services/utils/date";
 
-
 // Toast Import
 import toast from "react-hot-toast";
-
 
 import Swal from "sweetalert2";
 
 // ** Third Party Components
 import ReactPaginate from "react-paginate";
-import { ChevronDown, Edit, Plus, User } from "react-feather";
+import { ChevronDown, Edit, Eye, Plus, User } from "react-feather";
 import DataTable from "react-data-table-component";
 
 import { useTimeOut } from "../utility/hooks/useTimeOut";
@@ -25,13 +23,8 @@ import "@styles/react/apps/app-invoice.scss";
 import "@styles/react/libs/tables/react-dataTable-component.scss";
 import { GetAdminSchedual } from "../core/services/api/schedualApi";
 import CreateSchedual from "./CreateSchedual";
-
-
-
-
-
-
-
+import ShowSession from "../@core/components/ShowSession";
+import { getSession } from "../core/services/api/SessionApi";
 
 const Schedual = () => {
   const CustomHeader = ({ handlePerPage }) => {
@@ -53,27 +46,26 @@ const Schedual = () => {
               </Input>
             </div>
             <CreateSchedual title={"افزودن بازه رمانی"} />
-            
           </Col>
           <Col
             lg="6"
             className="actions-right d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap mt-lg-0 mt-1 pe-lg-1 p-0"
           >
             <div className="d-flex align-items-center">
-            <Input 
-              type='date'
-              name='startTime'
-              style={{width:'40%'}}
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-          />
-          <Input 
-              type='date'
-              name='endTime'
-              style={{width:'40%'}}
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-          />
+              <Input
+                type="date"
+                name="startTime"
+                style={{ width: "40%" }}
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+              />
+              <Input
+                type="date"
+                name="endTime"
+                style={{ width: "40%" }}
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+              />
             </div>
           </Col>
         </Row>
@@ -84,29 +76,49 @@ const Schedual = () => {
   const [Schedual, setSchedual] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [sort, setSort] = useState("desc");
-  const [startTime, setStartTime] = useState('1900/01/10')
-  const [endTime, setEndTime] = useState('3000/01/10')
+  const [startTime, setStartTime] = useState("1900/01/10");
+  const [endTime, setEndTime] = useState("3000/01/10");
   const [sortColumn, setSortColumn] = useState("id");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchText, setSearchText] = useState("");
+  const [sessionId, setSessionId] = useState([]);
+  const [SessionData, setSessionData] = useState([]);
+  const [sessionIsLoading, setSessionIsLoading] = useState(false);
 
   const textTimeOut = useTimeOut();
 
   useEffect(() => {
-        const fetch = async () => {
-            try {
-                const res = await GetAdminSchedual(startTime, endTime)
-                setSchedual(res)
-                setFilteredData(res); 
-            } catch (error) {
-                toast.error("Error")                
-            }
-        }
-        fetch()
+    const fetch = async () => {
+      try {
+        const res = await GetAdminSchedual(startTime, endTime);
+        setSchedual(res);
+        setFilteredData(res);
+      } catch (error) {
+        toast.error("Error");
+      }
+    };
+    fetch();
   }, []);
 
-
+  useEffect(() => {
+    {
+      Schedual.map((item) => {
+        const fetch = async () => {
+          try {
+            const res = await getSession(item.id);
+            setSessionData(res);
+            setSessionIsLoading(true);
+          } catch (error) {
+            toast.error("Error");
+          } finally {
+            setSessionIsLoading(false);
+          }
+        };
+        fetch();
+      });
+    }
+  }, []);
 
   const handlePerPage = (e) => {
     setRowsPerPage(parseInt(e.target.value));
@@ -162,49 +174,52 @@ const Schedual = () => {
     );
   };
 
-  
-
-
-
   // ** Table columns
-   const Columns = [
-      {
-        name: 'تعداد در هفته ',
-        selector: row => row.weekNumber,
-        sortable: true,
-      },
-      {
-        name: 'روز دوره',
-        selector: row => DtaeConvert(row.startDate),
-        sortable: true,
-      },
-      {
-        name: 'پایان دوره',
-        selector: row => DtaeConvert(row.endDate),
-        sortable: true,
-      },
-      {
-        name: 'حالت دوره',
-        selector: row => row.forming? "تشکیل شده" :" تشکیل نشده",
-        sortable: true,
-      },   
-      {
-        name: 'حضور غیاب دانشجو',
-        selector: row => row.lockToRaise?" نمیتوانند شرکت کنند" :" میتوانند شرکت کنند",
-        sortable: true,
-      }, 
-      {
-        name: "عملیات",
-        minWidth: "160px",
-        cell: (row) => {
-          return (
-            <div className="column-action d-flex align-items-center gap-1">
-              <CreateSchedual schedual={Schedual} title={<Edit size={14} className="me-50" />}  />
-                
+  const Columns = [
+    {
+      name: "تعداد در هفته ",
+      selector: (row) => row.weekNumber,
+      sortable: true,
+    },
+    {
+      name: "روز دوره",
+      selector: (row) => DtaeConvert(row.startDate),
+      sortable: true,
+    },
+    {
+      name: "پایان دوره",
+      selector: (row) => DtaeConvert(row.endDate),
+      sortable: true,
+    },
+    {
+      name: "حالت دوره",
+      selector: (row) => (row.forming ? "تشکیل شده" : " تشکیل نشده"),
+      sortable: true,
+    },
+    {
+      name: "حضور غیاب دانشجو",
+      selector: (row) =>
+        row.lockToRaise ? " نمیتوانند شرکت کنند" : " میتوانند شرکت کنند",
+      sortable: true,
+    },
+    {
+      name: "عملیات",
+      minWidth: "160px",
+      cell: (row) => {
+        return (
+          <div className="column-action d-flex align-items-center gap-1">
+            <CreateSchedual
+              schedual={Schedual}
+              title={<Edit size={14} className="me-50" />}
+            />
+            <div onClick={() => setSessionId(row.id)}>
+              <Eye size={15} />
+              <ShowSession isLoading={sessionIsLoading} sessionId={sessionId} />
             </div>
-          );
-        },
+          </div>
+        );
       },
+    },
   ];
 
   return (
@@ -226,17 +241,12 @@ const Schedual = () => {
             defaultSortField="id"
             paginationDefaultPage={currentPage}
             paginationComponent={CustomPagination}
-            subHeaderComponent={
-              <CustomHeader
-                handlePerPage={handlePerPage}
-              />
-            }
+            subHeaderComponent={<CustomHeader handlePerPage={handlePerPage} />}
           />
         </div>
       </Card>
     </div>
   );
 };
-
 
 export default Schedual;
