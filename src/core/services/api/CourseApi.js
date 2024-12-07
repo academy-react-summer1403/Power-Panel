@@ -151,9 +151,49 @@ export const GetCourseGroupAPI = async (teacherId, courseId) => {
 
 export const GetCourseGroupId = async (groupId) => {
   try {
-    const res = await axiosInstance.get(`/CourseGroup/Details?Id=${groupId}`);
+    const res = await http.get(`/CourseGroup/Details?Id=${groupId}`);
     return res;
   } catch (error) {
     return false;
   }
+}; 
+
+export const GetCourseReserveByIdAPI = async (courseId) => {
+  try {
+    const response = await http.get(`/CourseReserve/${courseId}`);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
 };
+
+export const DeleteCourseAPI = async (active, id) => {
+  try {
+    const response = await http.delete("/Course/DeleteCourse", {
+      data: {
+        active: !active,
+        id,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const ActiveAndInactiveCourseAPI = async (active, id) => {
+  try {
+    const response = await http.put("/Course/ActiveAndDeactiveCourse", {
+      active,
+      id,
+    });
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
+

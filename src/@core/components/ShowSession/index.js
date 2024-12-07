@@ -87,7 +87,6 @@ const ShowSession = ({ group, TourId, sessionId, isLoading }) => {
   return (
     <div>
       <Button size='sm' color='primary' onClick={handleClick}>
-        نمایش جلسات
       </Button>
       <Modal
         isOpen={show}

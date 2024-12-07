@@ -10,7 +10,7 @@ import { Badge, Tooltip } from "reactstrap";
 import { Check, X } from "react-feather";
 
 // ** Core Imports
-import { getCourseGroupAPI } from "../../../core/services/api/CourseApi";
+import { GetCourseGroupAPI } from "../../../core/services/api/CourseApi";
 import { DeleteCourseReserveAPI } from "../../../core/services/api/CourseApi";
 import { SendReserveToCourseAPI } from "../../../core/services/api/CourseApi";
 import { getCourseByIdAPI } from "../../../core/services/api/getCourseByIdAPI";
@@ -49,7 +49,7 @@ export const COURSE_RESERVED_COMMON_COLUMNS = (redirectUrl) => [
       const handleChangeCourseReserveToStudentCourse = async () => {
         try {
           const getCourseDetail = await getCourseByIdAPI(row.courseId);
-          const getCourseGroup = await getCourseGroupAPI(
+          const getCourseGroup = await GetCourseGroupAPI(
             getCourseDetail.teacherId,
             row.courseId
           );

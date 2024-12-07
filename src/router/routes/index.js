@@ -84,6 +84,7 @@ const EditAssistanceWork = lazy(() => import("../../pages/EditAssistanceWork"))
 const EditCourseAsis = lazy(() => import("../../pages/EditCourseAsis"))
 const CourseSocialGroupList = lazy(() => import("../../pages/CourseSocialGroupList"))
 const CreateCourseSocial = lazy(() => import("../../pages/CreateCourseSocialGroup"))
+const CourseDetails = lazy(() => import("../../pages/CourseDetails"))
 
 // ** Merge Routes
 const Routes = [
@@ -135,6 +136,10 @@ const Routes = [
   {
     path : "/PaymentList",
     element: <PaymentList/>
+  },
+  {
+    path : "/CourseDetails/:id",
+    element: <CourseDetails /> ,
   },
   {
     path : "/EditJob/:id",

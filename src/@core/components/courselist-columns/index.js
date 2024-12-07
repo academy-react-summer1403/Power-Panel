@@ -140,6 +140,14 @@ export const Coursecolumns = [
             <MoreVertical size={17} className="cursor-pointer" />
           </DropdownToggle>
           <DropdownMenu end>
+          <DropdownItem
+                tag={Link}
+                to={`/CourseDetails/${row.courseId}`}
+                className="w-100"
+              >
+                <Eye size={14} className="me-50" />
+                <span className="align-middle">جزئیات</span>
+              </DropdownItem>
             <DropdownItem
               tag={Link}
               to={`/EditCourse/${row.courseId}`}
