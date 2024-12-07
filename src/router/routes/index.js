@@ -12,7 +12,6 @@ import PublicRoute from "@components/routes/PublicRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
-import CoursePage from "../../pages/CourseListPage";
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -32,10 +31,60 @@ const Register = lazy(() => import("../../pages/Register"));
 const ForgotPassword = lazy(() => import("../../pages/ForgotPassword"));
 const Error = lazy(() => import("../../pages/Error"));
 const AddUser = lazy(() => import("../../pages/AddUser"));
+const EditUser = lazy(() => import("../../pages/editUser"));
+const CoursePage = lazy(() => import("../../pages/CourseListPage"))
 const CreateCourse = lazy(() => import("../../pages/CreateCourse"))
+const EditCourse = lazy(() => import("../../pages/EditCourse"))
 const NewsList = lazy(() => import("../../pages/NewsList"))
 const CreateNews = lazy(() => import("../../pages/CreateNews"))
 const CreateCourseCategory = lazy(() => import("../../pages/CreateCourseCat"));
+const CourseCat = lazy(() => import("../../pages/CourseCatList"))
+const EditCourseCat = lazy(() => import("../../pages/EditCourseGroup"))
+const CreateNewsCat = lazy(() => import("../../pages/AddNewsCat"))
+const NewsCatList = lazy(() => import("../../pages/NewsCatList"))
+const UserDetail = lazy(() => import("../../pages/userDeatil"))
+const ManageAllComments = lazy(() => import("../../pages/AllComment"))
+const EditNews = lazy(() => import("../../pages/EditNews"))
+const ReportComments = lazy(() => import("../../pages/ReportComment"))
+const CourseLevelList = lazy(() => import("../../pages/CourseLevelList"))
+const CreateCourseLevel = lazy(() => import("../../pages/createCourseLevel"))
+const EditCourseLevel = lazy(() => import("../../pages/editCourseLevel"))
+const UserOpinion = lazy(() => import("../../pages/userOpinion"))
+const ListOfBuilding = lazy(() => import("../../pages/ListOfBuilding"))
+const CreateBuilding = lazy(() => import("../../pages/CreateBuilding"))
+const EditBuilding = lazy(() => import("../../pages/editBuilding"))
+const TermList = lazy(() => import("../../pages/TermList"))
+const CreateTerm = lazy(() => import("../../pages/CreateTerm"))
+const EditTerm = lazy(() => import("../../pages/EditTerm"))
+const DepList = lazy(() => import("../../pages/DepartmentList"))
+const TechList = lazy(() => import("../../pages/TechnologyList"))
+const StatusList = lazy(() => import("../../pages/StatusList"))
+const CourseReserved = lazy(() => import("../../pages/CourseReserved"))
+const AssistanceWorkList = lazy(() => import("../../pages/AssistanceWorkList"))
+const CourseAssistanceList = lazy(() => import("../../pages/CourseAssistanceList"))
+const ClassRoomList = lazy(() => import("../../pages/ClassRoomList"))
+const SchedualList = lazy(() => import("../../pages/SchedualList"))
+const CreateSchedual = lazy(() => import("../../pages/CreateSchedual"))
+const CreateDep = lazy(() => import("../../pages/CreateDep"))
+const JobsList = lazy(() => import("../../pages/JobsList"))
+const PaymentList = lazy(() => import("../../pages/PaymentList"))
+const CreateJob = lazy(() => import("../../pages/CreateJob"))
+const CreateStatus = lazy(() => import("../../pages/CreateStatus"))
+const CreateTech = lazy(() => import("../../pages/CreateTech"))
+const CreateCourseAsis = lazy(() => import("../../pages/CreateCourseAsis"))
+const CreateAssistanceWork = lazy(() => import("../../pages/CreateAssistanceWork"))
+const CreateClassRoom = lazy(() => import("../../pages/CreateClassRoom"))
+const EditDep = lazy(() => import("../../pages/EditDep"))
+const EditJob = lazy(() => import("../../pages/EditJob"))
+const EditStatus = lazy(() => import("../../pages/EditStatus"))
+const EditTech = lazy(() => import("../../pages/EditTech"))
+const EditClassRoom = lazy(() => import("../../pages/EditClassRoom"))
+const EditCourseSocialGroup = lazy(() => import("../../pages/EditCourseSocialGroup"))
+const EditAssistanceWork = lazy(() => import("../../pages/EditAssistanceWork"))
+const EditCourseAsis = lazy(() => import("../../pages/EditCourseAsis"))
+const CourseSocialGroupList = lazy(() => import("../../pages/CourseSocialGroupList"))
+const CreateCourseSocial = lazy(() => import("../../pages/CreateCourseSocialGroup"))
+const CourseDetails = lazy(() => import("../../pages/CourseDetails"))
 
 // ** Merge Routes
 const Routes = [
@@ -49,8 +98,16 @@ const Routes = [
     element: <Home />,
   },
   {
+    path: "/EditUser/:id",
+    element: <EditUser/>,
+  },
+  {
     path: "/AddUser",
     element: <AddUser/>,
+  },
+  {
+    path:"/UseInfo/:id",
+    element: <UserDetail/>,
   },
   {
     path: "/CreateNews",
@@ -61,16 +118,212 @@ const Routes = [
     element: <CoursePage /> ,
   },
   {
+    path: "/CreateJob",
+    element: <CreateJob/>
+  },
+  {
+    path : "/CourseReservedList",
+    element: <CourseReserved /> ,
+  },
+  {
+    path : "/JobsList",
+    element: <JobsList /> ,
+  },
+  {
+    path : "/SchedualList",
+    element: <SchedualList /> ,
+  },
+  {
+    path : "/PaymentList",
+    element: <PaymentList/>
+  },
+  {
+    path : "/CourseDetails/:id",
+    element: <CourseDetails /> ,
+  },
+  {
+    path : "/EditJob/:id",
+    element: <EditJob /> ,
+  },
+  {
     path : "/CreateCourse",
     element: <CreateCourse/>
+  },
+  {
+    path : "/CourseSocialGroupList",
+    element: <CourseSocialGroupList/>
+  },
+  {
+    path : "/CreateCourseSocial",
+    element: <CreateCourseSocial/>
+  },
+  {
+    path : "/CreateAssistanceWork",
+    element: <CreateAssistanceWork/>
+  },
+  {
+    path : "/EditAssistanceWork/:id",
+    element: <EditAssistanceWork/>
+  },
+  {
+    path : "/EditCourseSocialGroup/:id",
+    element: <EditCourseSocialGroup/>
+  },
+  {
+    path : "/DepList",
+    element: <DepList/>
+  },
+  {
+    path : "/StatusList",
+    element: <StatusList/>
+  },
+  {
+    path : "/ClassRoomList",
+    element: <ClassRoomList/>
+  },
+  {
+    path : "/TechList",
+    element: <TechList/>
+  },
+  {
+    path : "/CourseAssistanceList",
+    element: <CourseAssistanceList/>
+  },
+  {
+    path : "/CreateDep",
+    element: <CreateDep/>
+  },
+  {
+    path : "/CreateStatus",
+    element: <CreateStatus/>
+  },
+  {
+    path : "/CreateTech",
+    element: <CreateTech/>
+  },
+  {
+    path : "/CreateCourseAsis",
+    element: <CreateCourseAsis/>
+  },
+  {
+    path : "/CreateClassRoom",
+    element: <CreateClassRoom/>
+  },
+  {
+    path : "/EditDep/:id",
+    element: <EditDep/>
+  },
+  {
+    path : "/EditStatus/:id",
+    element: <EditStatus/>
+  },
+  {
+    path : "/EditCourseAsis/:id",
+    element: <EditCourseAsis/>
+  },
+  {
+    path : "/EditTech/:id",
+    element: <EditTech/>
+  },
+  {
+    path : "/EditClassRoom/:id",
+    element: <EditClassRoom/>
+  },
+  {
+    path : "/EditCourse/:id",
+    element: <EditCourse/>
+  },
+  {
+    path:"/courseCatEdit/:id",
+    element: <EditCourseCat/>
+  },
+  {
+    path : "/CourseCat",
+    element: <CourseCat/>
+  },
+  {
+    path : "/CourseLevelList",
+    element: <CourseLevelList/>
+  },
+  {
+    path : "/AssistanceWorkList",
+    element: <AssistanceWorkList/>
+  },
+  {
+    path : "/CreateCourseLevel",
+    element: <CreateCourseLevel/>
+  },
+  {
+    path: "/TermList",
+    element : <TermList/>
+  },
+  {
+    path: "/CreateTerm",
+    element : <CreateTerm/>
+  },
+  {
+    path: "/EditTerm/:id",
+    element : <EditTerm/>
+  },
+  {
+    path : "/EditCourseLevel/:id",
+    element: <EditCourseLevel/>
   },
   {
     path : "/CreateCourseCat",
     element: <CreateCourseCategory/>
   },
   {
+    path : "/NewsCatList",
+    element: <NewsCatList/>
+  },
+  {
+    path : "/CreateNewsCat",
+    element: <CreateNewsCat/>
+  },
+  {
     path : "/NewsList" , 
     element : <NewsList />
+  },
+  {
+    path : "/AllUserComment" , 
+    element : <ManageAllComments />
+  },
+  {
+    element: <ManageAllComments />,
+    path: "/AllUserComment/:folder",
+  },
+  {
+    element: <ManageAllComments />,
+    path: "/AllUserComment/label/:label",
+  },
+  {
+    element: <ManageAllComments />,
+    path: "/AllUserComment/:filter",
+  },
+  {
+    element : <EditNews/> ,
+    path :"/EditNews/:id"
+  },
+  {
+    element: <ReportComments/>,
+    path: "/ReportComment"
+  },
+  {
+    element: <UserOpinion/>,
+    path: "/UserOpinion"
+  },
+  {
+    element: <ListOfBuilding/>,
+    path: "/ListOfBuilding"
+  },
+  {
+    element: <CreateBuilding/>,
+    path: "/CreateBuilding"
+  },
+  {
+    element: <EditBuilding/>,
+    path: "/EditBuilding/:id"
   },
   {
     path: "/login",

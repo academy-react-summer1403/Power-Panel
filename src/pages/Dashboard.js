@@ -51,7 +51,7 @@ const Dashboard = () => {
         <Col xl='4' md='6' xs='12'>
           <CardMedal dashboardData={dashboardData} />
         </Col>
-        <Col xl='8' md='6' xs='12'>
+        <Col className="justify-center " xl='8' md='6' xs='12'>
           <StatsCard dashboardData={dashboardData} cols={{ xl: '3', sm: '6' }} />
         </Col>
       </Row>

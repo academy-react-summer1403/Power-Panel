@@ -1,15 +1,15 @@
 //  React Imports
-import Checklist from "@editorjs/checklist";
-import Delimiter from "@editorjs/delimiter";
-import EditorJS from "@editorjs/editorjs";
-import Embed from "@editorjs/embed";
-import Header from "@editorjs/header";
-import ImageTool from "@editorjs/image";
-import LinkTool from "@editorjs/link";
-import List from "@editorjs/list";
-import Quote from "@editorjs/quote";
-import RawTool from "@editorjs/raw";
-import Warning from "@editorjs/warning";
+import Checklist from "../../../@editorjs/checklist";
+import Delimiter from "../../../@editorjs/delimiter";
+import EditorJS from "../../../@editorjs/editorjs";
+import Embed from "../../../@editorjs/embed";
+import Header from "../../../@editorjs/header";
+import ImageTool from "../../../@editorjs/image";
+import LinkTool from "../../../@editorjs/link";
+import List from "../../../@editorjs/list";
+import Quote from "../../../@editorjs/quote";
+import RawTool from "../../../@editorjs/raw";
+import Warning from "../../../@editorjs/warning";
 import Table from "editorjs-table";
 import { Fragment, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
@@ -54,7 +54,7 @@ const Describe = ({
         linkTool: {
           class: LinkTool,
           config: {
-            endpoint: "http://localhost:3000/fetchUrl", // Your backend endpoint for url data fetching
+            endpoint: "http://localhost:3000/fetchUrl", 
           },
         },
         raw: RawTool,
@@ -62,8 +62,8 @@ const Describe = ({
           class: ImageTool,
           config: {
             endpoints: {
-              byFile: "http://localhost:8008/uploadFile", // Your backend file uploader endpoint
-              byUrl: "http://localhost:8008/fetchUrl", // Your endpoint that provides uploading by Url
+              byFile: "http://localhost:8008/uploadFile", 
+              byUrl: "http://localhost:8008/fetchUrl",
             },
           },
         },

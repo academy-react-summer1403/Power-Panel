@@ -12,7 +12,11 @@ export const getCoursesStepOne = async () => {
 
 export const Post = async (form) => {
   try {
-    const res = await http.post("/Course", form);
+    const res = await http.post("/Course", form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return res;
   } catch (error) {
     console.log(error);
@@ -53,3 +57,143 @@ export const GetGroupsOfCourse = async () => {
     return [];
   }
 };
+
+export const GetCourseById = async (id) => {
+  try {
+    const res = await http.get(`/Course/${id}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const GetEditCourse = async (courseId) => {
+  try {
+    const res = await http.get("/Course/GetEditCourse", {
+      params: {
+        courseId,
+      },
+    });
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const UpdateCourse = async (course) => {
+  try {
+    const response = await http.put("/Course", course);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const getCourseReserveAPI = async () => {
+  try {
+    const res = await http.get("/CourseReserve");
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const DeleteCourseReserveAPI = async (id) => {
+  try {
+    const res = await http.delete("/CourseReserve", {
+      data: {
+        id,
+      },
+    });
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const SendReserveToCourseAPI = async (
+  courseId,
+  courseGroupId,
+  studentId
+) => {
+  try {
+    const res = await http.post("/CourseReserve/SendReserveToCourse", {
+      courseId,
+      courseGroupId,
+      studentId,
+    });
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const GetCourseGroupAPI = async (teacherId, courseId) => {
+  try {
+    const res = await http.get("/CourseGroup/GetCourseGroup", {
+      params: {
+        teacherId,
+        courseId,
+      },
+    });
+
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const GetCourseGroupId = async (groupId) => {
+  try {
+    const res = await http.get(`/CourseGroup/Details?Id=${groupId}`);
+    return res;
+  } catch (error) {
+    return false;
+  }
+}; 
+
+export const GetCourseReserveByIdAPI = async (courseId) => {
+  try {
+    const response = await http.get(`/CourseReserve/${courseId}`);
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const DeleteCourseAPI = async (active, id) => {
+  try {
+    const response = await http.delete("/Course/DeleteCourse", {
+      data: {
+        active: !active,
+        id,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const ActiveAndInactiveCourseAPI = async (active, id) => {
+  try {
+    const response = await http.put("/Course/ActiveAndDeactiveCourse", {
+      active,
+      id,
+    });
+
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
+

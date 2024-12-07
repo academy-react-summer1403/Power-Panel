@@ -13,7 +13,7 @@ import { Controller, useForm } from "react-hook-form";
 import { addCourseGroupAPI } from "../../../core/services/api/CreateCourseCategoryApi";
 import { updateCourseGroupAPI } from "../../../core/services/api/EditeCourseCat";
 import { GetTechListAPI } from "../../../core/services/api/GetCourseTech";
-import { courseGroupVal } from "../../../core/Validation/Course/CreateCat";
+import { courseGroupVal } from "../../../core/Validation/Course";
 
 // ** Utils
 import { convertOptions } from "../../../utility/ConvertHelper";
@@ -36,12 +36,6 @@ import {
   Row,
   Spinner,
 } from "reactstrap";
-
-// ** Styles
-import "@styles/base/pages/page-blog.scss";
-import "@styles/base/plugins/forms/form-quill-editor.scss";
-import "@styles/react/libs/editor/editor.scss";
-import "@styles/react/libs/react-select/_react-select.scss";
 
 const CourseCatForm = ({ group }) => {
   // ** States
@@ -148,64 +142,66 @@ const CourseCatForm = ({ group }) => {
                 onSubmit={handleSubmit((values) => onSubmit(values))}
               >
                 <Row>
-                <Col md="6" className="mb-3">
-                <Label for="groupName">عنوان گروه</Label>
-                <Controller
-                  name="groupName"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      id="groupName"
-                      invalid={!!errors.groupName}
-                      placeholder="عنوان گروه را وارد کنید..."
-                      {...field}
-                    />
-                  )}
-                />
-                {errors.groupName && (
-                  <FormFeedback>{errors.groupName.message}</FormFeedback>
-                )}
-              </Col>
                   <Col md="6" className="mb-3">
-                <Label for="groupCapacity">ظرفیت گروه</Label>
-                <Controller
-                  name="groupCapacity"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      id="groupCapacity"
-                      type="number"
-                      invalid={!!errors.groupCapacity}
-                      placeholder="ظرفیت گروه را وارد کنید..."
-                      {...field}
+                    <Label for="groupName">عنوان گروه</Label>
+                    <Controller
+                      name="groupName"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          id="groupName"
+                          invalid={!!errors.groupName}
+                          placeholder="عنوان گروه را وارد کنید..."
+                          {...field}
+                        />
+                      )}
                     />
-                  )}
-                />
-                {errors.groupCapacity && (
-                  <FormFeedback>{errors.groupCapacity.message}</FormFeedback>
-                )}
-              </Col>
+                    {errors.groupName && (
+                      <FormFeedback>{errors.groupName.message}</FormFeedback>
+                    )}
+                  </Col>
+                  <Col md="6" className="mb-3">
+                    <Label for="groupCapacity">ظرفیت گروه</Label>
+                    <Controller
+                      name="groupCapacity"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          id="groupCapacity"
+                          type="number"
+                          invalid={!!errors.groupCapacity}
+                          placeholder="ظرفیت گروه را وارد کنید..."
+                          {...field}
+                        />
+                      )}
+                    />
+                    {errors.groupCapacity && (
+                      <FormFeedback>
+                        {errors.groupCapacity.message}
+                      </FormFeedback>
+                    )}
+                  </Col>
                   <Col md="12" className="mb-3">
-                <Label for="courseId">دوره</Label>
-                <Controller
-                  name="courseId"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      theme={selectThemeColors}
-                      className="react-select"
-                      classNamePrefix="select"
-                      options={courses}
-                      isClearable
-                      components={animatedComponents}
-                      {...field}
+                    <Label for="courseId">دوره</Label>
+                    <Controller
+                      name="courseId"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          theme={selectThemeColors}
+                          className="react-select"
+                          classNamePrefix="select"
+                          options={courses}
+                          isClearable
+                          components={animatedComponents}
+                          {...field}
+                        />
+                      )}
                     />
-                  )}
-                />
-                {errors.courseId && (
-                  <FormFeedback>{errors.courseId.message}</FormFeedback>
-                )}
-              </Col>
+                    {errors.courseId && (
+                      <FormFeedback>{errors.courseId.message}</FormFeedback>
+                    )}
+                  </Col>
                   <Col md="12" className="mt-50 d-flex">
                     <Button
                       type="submit"

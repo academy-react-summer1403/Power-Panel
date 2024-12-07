@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 
 // ** Custom Components
@@ -12,6 +12,7 @@ import {
   DropdownToggle,
   UncontrolledTooltip,
   UncontrolledDropdown,
+  Tooltip,
 } from "reactstrap";
 
 // ** Third Party Components
@@ -29,9 +30,12 @@ import {
   CheckCircle,
   MoreVertical,
   ArrowDownCircle,
+  XCircle,
 } from "react-feather";
 import { DtaeConvert } from "../../../core/services/utils/date";
 import { numb } from "../../../core/services/utils/numbHelp";
+import { onFormData } from "../../../utility/DataHelper";
+import { activeNews } from "../../../core/services/api/NewsApi";
 
 // ** Vars
 const invoiceStatusObj = {
@@ -45,8 +49,8 @@ const invoiceStatusObj = {
 
 // ** Table columns
 export const Newscolumns = [
-    {
-        name: "نام دوره",
+  {
+    name: "نام دوره",
     sortable: true,
     minWidth: "300px",
     sortField: "250px",
@@ -58,31 +62,25 @@ export const Newscolumns = [
     ),
   },
   {
+    name: "نام مدرس",
+    minWidth: "150px",
+    cell: (row) => {
+      return <h5> {row.addUserFullName} </h5>;
+    },
+  },
+  {
     name: "تعداد لایک ها",
-    minWidth : "70px",
-    cell : (row) => {
-        return(
-            <span> {row?.currentLikeCount} </span>
-        )
-    }
+    minWidth: "70px",
+    cell: (row) => {
+      return <span> {row?.currentLikeCount} </span>;
+    },
   },
   {
     name: "تعداد دیس لایک ها",
-    minWidth : "170px",
-    cell : (row) => {
-        return(
-            <span> {row?.currentDissLikeCount} </span>
-        )
-    }
-  },
-  {
-    name : "نام مدرس",
-    minWidth : "150px" , 
-    cell : (row) => {
-      return(
-        <h5> {row.addUserFullName} </h5>
-      )
-    }
+    minWidth: "170px",
+    cell: (row) => {
+      return <span> {row?.currentDissLikeCount} </span>;
+    },
   },
   {
     sortable: true,
@@ -91,68 +89,87 @@ export const Newscolumns = [
     minWidth: "150px",
     sortField: "StartTime",
     sortName: "StartTime",
-    cell: (row) => <span>{DtaeConvert(row.insertDate) }  </span>,
-},
-{
-  sortable: true,
-  minWidth: "102px",
-  sortField: "lastUpdate",
-  name: <TrendingUp size={14} />,
-  // selector: row => row.invoiceStatus,
-  cell: (row) => {
-    const color = invoiceStatusObj[row.invoiceStatus]
-        ? invoiceStatusObj[row.invoiceStatus].color
-        : "primary",
-      Icon = invoiceStatusObj[row.invoiceStatus]
-        ? invoiceStatusObj[row.invoiceStatus].icon
-        : Edit;
-    return (
-      <Fragment>
-        <Avatar
-          color={color}
-          icon={<Icon size={14} />}
-          id={`av-tooltip-${row.id}`}
-        />
-        <UncontrolledTooltip placement="top" target={`av-tooltip-${row.id}`}>
-          {DtaeConvert(row.lastUpdate)}
-        </UncontrolledTooltip>
-      </Fragment>
-    );
+    cell: (row) => <span>{DtaeConvert(row.insertDate)} </span>,
   },
-},
   {
     name: "موارد دیگر",
     minWidth: "110px",
-    cell: (row) => (
-      <div className="column-action d-flex align-items-center">
-        {/* <UncontrolledTooltip placement="top" target={`pw-tooltip-${row?.courseId}`}>
-          نمایش دوره
-        </UncontrolledTooltip> */}
-        <UncontrolledDropdown>
-          <DropdownToggle tag="span">
-            <MoreVertical size={17} className="cursor-pointer" />
-          </DropdownToggle>
-          <DropdownMenu end>
-            <DropdownItem
-              tag={Link}
-              to={`/courses/${row.courseId}`}
-              className="w-100"
+    cell: (row) => {
+      // ** States
+      const [activeInactiveNewsTooltip, setActiveInactiveNewsTooltip] =
+        useState(false);
+
+      const handleActiveInactiveNews = async () => {
+        try {
+          const data = {
+            active: !row.isActive,
+            id: row.id,
+          };
+      
+          const formData = onFormData(data);
+      
+          const activeInactiveCourse = await activeNews(formData);
+          
+          console.log(activeInactiveCourse); // برای بررسی پاسخ از API
+      
+          if (activeInactiveCourse.success) {
+            toast.success(
+              `خبر با موفقیت ${row.isActive ? "غیر فعال" : "فعال"} شد !`
+            );
+          } else {
+            toast.error(
+              `مشکلی در ${
+                row.isActive ? "غیر فعال" : "فعال"
+              } کردن خبر به وجود آمد !`
+            );
+          }
+        } catch (error) {
+          console.error(error); 
+          toast.error(
+            `مشکلی در ${
+              row.isActive ? "غیر فعال" : "فعال"
+            } کردن خبر به وجود آمد !`
+          );
+        }
+      };
+      return (
+        <div className="column-action gap-2 d-flex align-items-center">
+          <div>
+            {row.isActive ? (
+              <XCircle
+                id="activeInactiveNews"
+                className="cursor-pointer activeNewsIcon"
+                onClick={handleActiveInactiveNews}
+              />
+            ) : (
+              <CheckCircle
+                id="activeInactiveNews"
+                className="cursor-pointer inActiveNewsIcon"
+                onClick={handleActiveInactiveNews}
+              />
+            )}
+            <Tooltip
+              placement="top"
+              isOpen={activeInactiveNewsTooltip}
+              target="activeInactiveNews"
+              toggle={() =>
+                setActiveInactiveNewsTooltip(!activeInactiveNewsTooltip)
+              }
+              innerClassName="table-tooltip"
             >
-              <Edit size={14} className="me-50" />
-              <span className="align-middle">ویرایش</span>
-            </DropdownItem>
-            <DropdownItem
-              tag="a"
-              href="/"
-              className="w-100"
-              onClick={(e) => e.preventDefault() }
+              {row.isActive ? "غیر فعال کردن" : "فعال کردن"}
+            </Tooltip>
+          </div>
+          <Link
+                to={`/EditNews/${row.id}`}
+                className="w-100"
               >
-              <Trash size={14} className="me-50" />
-              <span className="align-middle">حذف</span>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-      </div>
-    ),
+                <Edit size={22} className="me-50" />
+              </Link>
+
+
+        </div>
+      );
+    },
   },
 ];

@@ -11,6 +11,11 @@ const onSuccess = (response) => {
   return response.data;
 };
 
+
+if (!getItem("token") && window.location.pathname !== "/login") {
+  window.location.pathname = "/login";
+}
+
 const onError = (err) => {
   console.log(err);
 
@@ -18,10 +23,6 @@ const onError = (err) => {
     removeItem("token");
 
     window.location.pathname = "/login";
-  }
-
-  if (err?.response?.status >= 400 && err.response.status < 500) {
-    alert("Client Error: ", err.response.status);
   }
 
   Promise.reject(err);
